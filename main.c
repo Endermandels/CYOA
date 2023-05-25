@@ -1,3 +1,12 @@
+/*
+CYOA
+Elijah Delavar
+
+TODO: Files
+TODO: Compilation
+TODO: Description
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
