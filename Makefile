@@ -1,27 +1,27 @@
 EXEC = cyoa
 OBJS = main.o
 CCFLAGS = gcc -Wall -std=c99 --pedantic
-GCACHE = ./GameCache
+CACHE = ./.cache
 
 ${EXEC}: ${OBJS}
 	${CCFLAGS} -o ${EXEC} ${OBJS}
-	make gcache
+	make cache
 
 # if the game cache does not exist, create it
-gcache: | ${GCACHE}
-	mv ${OBJS} ${EXEC} ${GCACHE}
+cache: | ${CACHE}
+	mv ${OBJS} ${EXEC} ${CACHE}
 
-# $@ refers to the name of this command, ${GCACHE}
+# $@ refers to the name of this command, ${CACHE}
 # -p creates the directory if it doesn't exist
 #	and does not return an error if it does exist
-${GCACHE}:
+${CACHE}:
 	mkdir -p $@
 
 main.o: main.c
 	${CCFLAGS} -c main.c
 
 run: ${EXEC}
-	${GCACHE}/${EXEC}
+	${CACHE}/${EXEC}
 
 runv: ${EXEC}
-	valgrind ${GCACHE}/${EXEC}
+	valgrind ${CACHE}/${EXEC}
