@@ -53,6 +53,10 @@ int readStory() {
     while (fgets(buffer, MAXLEN, fp)) {
         int lenBuffer = strlen(buffer) + 1;
 
+        if (buffer[0] == '1') {
+            break;
+        }
+
         if (ii == 0) {
             // Title
             if (!title) {
@@ -71,23 +75,51 @@ int readStory() {
                 if (!temp) {
                     puts("!!! Memory Allocation Failure !!!");
                     free(title);
+                    free(description);
                     fclose(fp);
                     return 1;
                 }
+                title = temp;
             }
             strncpy(title, buffer, lenBuffer);
             ii++;
         } else if (ii == 1) {
             // Description
-
+            if (!description) {
+                // Init description
+                descriptionSize = sizeof(char)*lenBuffer;
+                description = (char*)malloc(descriptionSize);
+                if (!description) {
+                    puts("!!! Memory Allocation Failure !!!");
+                    free(title);
+                    fclose(fp);
+                    return 1;
+                }
+                description[0] = '\0';
+            } else if (lenBuffer + strlen(description) + 1 > descriptionSize) {
+                // Resize description
+                descriptionSize += sizeof(char)*lenBuffer;
+                char *temp = (char*)realloc(description, descriptionSize);
+                if (!temp) {
+                    puts("!!! Memory Allocation Failure !!!");
+                    free(title);
+                    free(description);
+                    fclose(fp);
+                    return 1;
+                }
+                description = temp;
+            }
+            strncat(description, buffer, lenBuffer);
         }
 
         // storePrompt(title, description);
     }
 
     puts(title);
+    puts(description);
 
     free(title);
+    free(description);
 
     fclose(fp);
     return 0;
