@@ -1,6 +1,6 @@
 # CYOA
 
-Elijah Delavar
+By Elijah Delavar
 
 ## Description
 

@@ -1,5 +1,5 @@
 EXEC = cyoa
-OBJS = main.o readStory.o
+OBJS = main.o fileManager.o prompts.o
 CCFLAGS = gcc -Wall -std=c99 --pedantic
 CACHE = ./.cache
 
@@ -20,8 +20,11 @@ ${CACHE}:
 main.o: main.c
 	${CCFLAGS} -c main.c
 
-readStory.o: readStory.c
-	${CCFLAGS} -c readStory.c
+fileManager.o: fileManager.c
+	${CCFLAGS} -c fileManager.c
+
+prompts.o: prompts.c
+	${CCFLAGS} -c prompts.c
 
 run: ${EXEC}
 	${CACHE}/${EXEC}

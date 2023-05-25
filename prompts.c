@@ -14,5 +14,10 @@ Get prompt.
 #include <string.h>
 #include "prompts.h"
 
-int storePrompt(Prompt*);
+Prompt *start;
+Prompt *end;
+
+int storePrompt(char*,char*);
 Prompt *getPrompt(char*);
+
+
