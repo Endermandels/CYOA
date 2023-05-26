@@ -42,6 +42,8 @@ int readStory() {
     char *title = NULL;
     int descriptionSize = 0;
     char *description = NULL;
+    char choice[10];
+    char goToTitle[50];
 
     int MAXLEN = 512;
     char buffer[MAXLEN];
@@ -132,24 +134,65 @@ int readStory() {
                     return err;
                 }
             }
-            // addOption(title, choice, ctitle);
+
             if (buffer[0] == '\r' || buffer[0] == '\n') {
                 // End of Options
                 ii = 0;
+            } else {
+                // Choice
+                int jj = 0;
+                while (buffer[jj] != '.') {
+                    if (buffer[jj] == '\0') {
+                        puts("!!! Improperly Formated Option !!!");
+                        free(title);
+                        free(description);
+                        fclose(fp);
+                        return 1;
+                    }
+                    choice[jj] = buffer[jj];
+                    jj++;
+                }
+                choice[jj] = '\0';
+                jj++;
+
+
+                // Clear whitespace
+                while (buffer[jj] == ' ' || buffer[jj] == '\t') {
+                    jj++;
+                }
+
+                // GoToTitle
+                int kk = 0;
+                while (buffer[jj] != '\n' && buffer[jj] != '\r' && buffer[jj] != '\0') {
+                    goToTitle[kk++] = buffer[jj++];
+                }
+                goToTitle[kk] = '\0';
+
+                int err = addOption(title, choice, goToTitle);
+                if (err) {
+                    free(title);
+                    free(description);
+                    fclose(fp);
+                    return err;
+                }
             }
         } else if (ii == 3) {
             // End
-            // storePrompt(title, description);
+            int err = storePrompt(title, description);
+            if (err) {
+                free(title);
+                free(description);
+                fclose(fp);
+                return err;
+            }
+            ii = 0;
         }
-
     }
 
-    puts(title);
-    puts(description);
+    printPTDLL();
 
     free(title);
     free(description);
-
     fclose(fp);
     return 0;
 }
