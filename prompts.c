@@ -145,6 +145,9 @@ int storePrompt(char *title, char *description) {
     return 0;
 }
 
+/*
+Add a new option to an existing Prompt with given title.
+*/
 int addOption(char *title, char *choice, char *goToTitle) {
     Prompt *pt = getPrompt(title);
     if (!pt) {
