@@ -26,10 +26,8 @@ Parse the story text file into prompts.
 Format:
 Title
 Description (may contain newlines)
-1.
-2.
-3.
-4.
+1.  Title 1
+2.  Title 2
 etc.
 */
 int readStory() {
@@ -53,8 +51,16 @@ int readStory() {
     while (fgets(buffer, MAXLEN, fp)) {
         int lenBuffer = strlen(buffer) + 1;
 
-        if (buffer[0] == '1') {
-            break;
+        if (description) {
+            if (description[strlen(description)-1] == '\n') {
+                if (buffer[0] == '1') {
+                    // Begin Options
+                    ii = 2;
+                } else if (buffer[0] == '!') {
+                    // End
+                    ii = 3;
+                }
+            }
         }
 
         if (ii == 0) {
@@ -83,6 +89,11 @@ int readStory() {
             }
             strncpy(title, buffer, lenBuffer);
             ii++;
+
+            // Empty Description
+            if (description) {
+                description[0] = '\0';
+            }
         } else if (ii == 1) {
             // Description
             if (!description) {
@@ -110,9 +121,27 @@ int readStory() {
                 description = temp;
             }
             strncat(description, buffer, lenBuffer);
+        } else if (ii == 2) {
+            // Options
+            if (buffer[0] == '1') {
+                int err = storePrompt(title, description);
+                if (err) {
+                    free(title);
+                    free(description);
+                    fclose(fp);
+                    return err;
+                }
+            }
+            // addOption(title, choice, ctitle);
+            if (buffer[0] == '\r' || buffer[0] == '\n') {
+                // End of Options
+                ii = 0;
+            }
+        } else if (ii == 3) {
+            // End
+            // storePrompt(title, description);
         }
 
-        // storePrompt(title, description);
     }
 
     puts(title);

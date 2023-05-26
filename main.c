@@ -11,12 +11,15 @@ TODO: Description
 #include <stdlib.h>
 #include <string.h>
 #include "fileManager.h"
+#include "exitManager.h"
 
 int main(int argc, char const *argv[])
 {
     int err = readStory();
     if (err) {
+        quit();
         return err;
     }
+    quit();
     return 0;
 }
