@@ -1,7 +1,7 @@
 EXEC = cyoa
 OBJS = main.o exitManager.o fileManager.o prompts.o
 CCFLAGS = gcc -Wall -std=c99 --pedantic
-CACHE = ./.cache
+CACHE = ../.cache
 
 ${EXEC}: ${OBJS}
 	${CCFLAGS} -o ${EXEC} ${OBJS}
@@ -9,7 +9,8 @@ ${EXEC}: ${OBJS}
 
 # if the game cache does not exist, create it
 cache: | ${CACHE}
-	mv ${OBJS} ${EXEC} ${CACHE}
+	mv ${OBJS} ${CACHE}
+	mv ${EXEC} ..
 
 # $@ refers to the name of this command, ${CACHE}
 # -p creates the directory if it doesn't exist
@@ -30,10 +31,10 @@ prompts.o: prompts.c
 	${CCFLAGS} -c prompts.c
 
 run: ${EXEC}
-	${CACHE}/${EXEC}
+	../${EXEC}
 
 runv: ${EXEC}
-	valgrind ${CACHE}/${EXEC}
+	valgrind ../${EXEC}
 
 runvs: ${EXEC}
-	valgrind -s ${CACHE}/${EXEC}
+	valgrind -s ../${EXEC}
