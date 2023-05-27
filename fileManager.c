@@ -118,7 +118,8 @@ int readStory() {
             } else if (lenBuffer + strlen(description) + 1 > descriptionSize) {
                 // Resize description
                 descriptionSize += sizeof(char)*lenBuffer;
-                char *temp = (char*)realloc(description, descriptionSize);
+                char *temp = NULL;
+                temp = (char*)realloc(description, descriptionSize);
                 if (!temp) {
                     puts("!!! Memory Allocation Failure !!!");
                     free(title);
@@ -150,7 +151,7 @@ int readStory() {
             // Choice
             int jj = 0;
             while (buffer[jj] != '.') {
-                if (buffer[jj] == '\0') {
+                if (buffer[jj] == '\0' || jj >= 10) {
                     puts("!!! Improperly Formated Option !!!");
                     free(title);
                     free(description);
@@ -172,6 +173,13 @@ int readStory() {
             // GoToTitle
             int kk = 0;
             while (buffer[jj] != '\n' && buffer[jj] != '\r' && buffer[jj] != '\0') {
+                if (kk >= 50) {
+                    puts("!!! Improperly Formated Option !!!");
+                    free(title);
+                    free(description);
+                    fclose(fp);
+                    return 1;
+                }
                 goToTitle[kk++] = buffer[jj++];
             }
             goToTitle[kk] = '\0';
