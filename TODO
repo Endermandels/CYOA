@@ -2,4 +2,3 @@
     Start the game loop which reads off a prompts description then lists off the choices.
     The player should then be able to choose one of the choices.
     Go to the player's title of choice.
-
