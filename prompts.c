@@ -158,18 +158,20 @@ int addOption(char *title, char *choice, char *goToTitle) {
     // Allocate Memory
     if (!pt->options) {
         // Malloc
-        pt->numOptions = 1;
         pt->options = (Option*)malloc(sizeof(Option));
         if (!pt->options) {
             puts("!!! Memory Allocation Failure !!!");
             return 1;
         }
+        pt->numOptions = 1;
     } else {
         // Realloc
         pt->numOptions += 1;
-        Option *temp = (Option*)realloc(pt->options, sizeof(Option)*pt->numOptions);
+        Option *temp = NULL;
+        temp = (Option*)realloc(pt->options, sizeof(Option)*pt->numOptions);
         if (!temp) {
             puts("!!! Memory Allocation Failure !!!");
+            pt->numOptions -= 1;
             return 1;
         }
         pt->options = temp;
