@@ -34,3 +34,6 @@ run: ${EXEC}
 
 runv: ${EXEC}
 	valgrind ${CACHE}/${EXEC}
+
+runvs: ${EXEC}
+	valgrind -s ${CACHE}/${EXEC}

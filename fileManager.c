@@ -53,7 +53,7 @@ int readStory() {
     while (fgets(buffer, MAXLEN, fp)) {
         int lenBuffer = strlen(buffer) + 1;
 
-        if (description) {
+        if (description && description[0] != '\0') {
             if (description[strlen(description)-1] == '\n') {
                 if (buffer[0] == '1') {
                     // Begin Options
@@ -84,7 +84,8 @@ int readStory() {
             } else if (lenBuffer > titleSize) {
                 // Resize title
                 titleSize = sizeof(char)*lenBuffer;
-                char *temp = (char*)realloc(title, titleSize);
+                char *temp = NULL;
+                temp = (char*)realloc(title, titleSize);
                 if (!temp) {
                     puts("!!! Memory Allocation Failure !!!");
                     free(title);
@@ -140,8 +141,8 @@ int readStory() {
                 }
             }
 
+            // End of Options
             if (buffer[0] == '\r' || buffer[0] == '\n') {
-                // End of Options
                 ii = 0;
                 continue;
             }

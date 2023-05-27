@@ -1,14 +1,13 @@
-Title
-Description
-1.  T1
-2.  T2
+Foods
+Which food will you eat for breakfast today?
+1.  Bacon
+2.  Cheese
 
-T1
-Testing
-New
-Lines
+Bacon
+I love bacon.
+Do you love bacon?
 !END
 
-T2
-Testing multiple prompts
+Cheese
+Everything tastes better with moldy milk.
 !END
