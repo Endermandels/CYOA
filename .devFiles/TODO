@@ -1,1 +1,8 @@
+1.  Create Game Files
+    Game Files should be easy for the player to manipulate, while also giving them a puzzle to solve.
 
+2.  Check Game Files
+    Check the state of the game files.
+
+3.  Reset Game Files
+    When starting a new game, reset the game files.
