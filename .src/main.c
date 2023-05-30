@@ -16,7 +16,13 @@ TODO: Description
 
 int main(int argc, char const *argv[])
 {
-    int err = readStory();
+    int err = 0;
+    err = chooseStory();
+    if (err) {
+        quit();
+        return err;
+    }
+    err = readStory();
     if (err) {
         quit();
         return err;

@@ -13,12 +13,26 @@ Write to game files.
 #include <stdlib.h>
 #include <string.h>
 #include "prompts.h"
+#include "userInput.h"
 
-char *storyFN = "../.devFiles/story.txt";
+char *storyFN = "../.devFiles/Guest.txt";
 
+int chooseStory();
 int readStory();
 int readGF();
 int writeGF();
+
+/*
+Choose the story based off game files and user's password.
+*/
+int chooseStory() {
+    char username[50];
+    password(username, 50);
+
+    puts(username);
+
+    return 0;
+}
 
 /*
 Parse the story text file into prompts.

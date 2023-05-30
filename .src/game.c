@@ -20,8 +20,9 @@ Receive user input.
 Go to next prompt.
 */
 int gameLoop() {
-    short running = 1;
     int err = 0;
+
+    short running = 1;
     Prompt *cur = getStart();
 
     while (running) {
