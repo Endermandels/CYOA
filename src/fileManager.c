@@ -96,6 +96,12 @@ int readStory() {
                 title = temp;
             }
             strncpy(title, buffer, lenBuffer);
+            if (title[lenBuffer-2] == '\n') {
+                title[lenBuffer-2] = '\0';
+                if (title[lenBuffer-3] == '\r') {
+                    title[lenBuffer-3] = '\0';
+                }
+            }
             ii++;
 
             // Empty Description
@@ -204,7 +210,7 @@ int readStory() {
         }
     }
 
-    printPTDLL();   // TODO: Delete
+    // printPTDLL();
 
     free(title);
     free(description);

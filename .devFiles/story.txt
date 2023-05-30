@@ -6,8 +6,17 @@ Which food will you eat for breakfast today?
 Bacon
 I love bacon.
 Do you love bacon?
+1.  Love Bacon
+2.  Hate Bacon
+
+Love Bacon
+You are an awesome person.
+!END
+
+Hate Bacon
+What?  Why?  It's so good, though!
 !END
 
 Cheese
-Everything tastes better with moldy milk.
+Everything tastes better with curdled milk.
 !END

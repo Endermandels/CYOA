@@ -1,5 +1,5 @@
 EXEC = cyoa
-OBJS = main.o exitManager.o fileManager.o prompts.o
+OBJS = main.o exitManager.o fileManager.o userInput.o prompts.o game.o
 CCFLAGS = gcc -Wall -std=c99 --pedantic
 CACHE = ../.cache
 
@@ -27,8 +27,14 @@ fileManager.o: fileManager.c
 exitManager.o: exitManager.c
 	${CCFLAGS} -c exitManager.c
 
+userInput.o: userInput.c
+	${CCFLAGS} -c userInput.c
+
 prompts.o: prompts.c
 	${CCFLAGS} -c prompts.c
+
+game.o: game.c
+	${CCFLAGS} -c game.c
 
 run: ${EXEC}
 	../${EXEC}

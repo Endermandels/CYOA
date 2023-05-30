@@ -10,5 +10,6 @@ TODO: Description
 #include "prompts.h"
 
 void quit() {
+    puts("\nExiting...");
     freePTDLL();
 }

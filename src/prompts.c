@@ -20,9 +20,25 @@ Prompt *end;
 void printPTDLL();
 Prompt *freePT(Prompt*);
 void freePTDLL();
-Prompt *getPrompt(char*);           // title
-int storePrompt(char*,char*);       // title, description
-int addOption(char*,char*,char*);   // Prompt's title, choice, choice's title
+Prompt *getStart();
+Prompt *getPrompt(char*);
+int storePrompt(char*,char*);
+int addOption(char*,char*,char*);
+
+/*
+Print the prompt for the user to answer.
+*/
+int printPT(Prompt *pt) {
+    if (!pt) {
+        puts("!!! Null Prompt !!!");
+        return 1;
+    }
+    puts(pt->description);
+    for (int ii = 0; ii < pt->numOptions; ii++) {
+        printf("%s.  %s\n", pt->options[ii].choice, pt->options[ii].goToTitle);
+    }
+    return 0;
+}
 
 /*
 Print all Prompts' attributes.
@@ -80,6 +96,10 @@ void freePTDLL() {
     while(cur) {
         cur = freePT(cur);
     }
+}
+
+Prompt *getStart() {
+    return start;
 }
 
 /*

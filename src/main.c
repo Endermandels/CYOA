@@ -10,12 +10,18 @@ TODO: Description
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "game.h"
 #include "fileManager.h"
 #include "exitManager.h"
 
 int main(int argc, char const *argv[])
 {
     int err = readStory();
+    if (err) {
+        quit();
+        return err;
+    }
+    err = gameLoop();
     if (err) {
         quit();
         return err;
