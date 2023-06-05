@@ -10,5 +10,5 @@
 4.  Login
     Ask the player for username/password combination at the appropriate prompt.
 
-5.  Variable Millisecond Printing
-    Check for different millisecond print speeds in a prompt's description.
+5.  Skip Option
+    If the player pressed Shift+[Option Choice], print description to screen with 0 delay.

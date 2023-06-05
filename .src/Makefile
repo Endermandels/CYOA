@@ -37,6 +37,7 @@ game.o: game.c
 	${CCFLAGS} -c game.c
 
 run: ${EXEC}
+	clear
 	../${EXEC}
 
 runv: ${EXEC}

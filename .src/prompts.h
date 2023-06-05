@@ -22,6 +22,7 @@ typedef struct DESCRIPTION_SEGMENT {
 
 typedef struct PROMPT {
     char *title;
+    short skipDescription;
     int numDescriptionSegments;
     struct DESCRIPTION_SEGMENT *ds;
     int numOptions;

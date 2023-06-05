@@ -40,7 +40,10 @@ int printPT(Prompt *pt) {
 
     for (int ii = 0; ii < pt->numDescriptionSegments; ii++) {
         // Milliseconds between prints
-        long msec = pt->ds[ii].delay;
+        long msec = 0;
+        if (!pt->skipDescription) {
+            msec = pt->ds[ii].delay;
+        }
 
         struct timespec ts;
         ts.tv_sec = msec / 1000;
@@ -161,6 +164,7 @@ int storePrompt(char *title) {
     }
 
     new->title = NULL;
+    new->skipDescription = 0;
     new->numDescriptionSegments = 0;
     new->ds = NULL;
     new->numOptions = 0;

@@ -15,7 +15,7 @@ Write to game files.
 #include "prompts.h"
 #include "userInput.h"
 
-char *storyFN = "../.devFiles/Princess.txt";
+char *storyFN = "../.devFiles/Guest.txt";
 
 int chooseStory();
 int readStory();

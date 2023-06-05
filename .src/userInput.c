@@ -68,11 +68,30 @@ int choose(char *dest, int n, Prompt *pt) {
         if (!strcmp(dest, "q")) {
             return 0;
         }
+
+        // Skip Option
+        char buffer[50];
+        int lenDest = strlen(dest);
+        short skip = 0;
+        if (dest[0] == '-') {
+            strncpy(buffer, dest+1, lenDest);
+            skip = 1;
+        } else {
+            strncpy(buffer, dest, lenDest+1);
+        }
         
         // Check for user's choice and next title
         for (int ii = 0; ii < pt->numOptions; ii++) {
-            if (!strcmp(dest, pt->options[ii].choice)) {
+            if (!strcmp(buffer, pt->options[ii].choice)) {
                 strncpy(dest, pt->options[ii].goToTitle, strlen(pt->options[ii].goToTitle)+1);
+                if (skip) {
+                    Prompt *nextPT = getPrompt(pt->options[ii].goToTitle);
+                    if (!nextPT) {
+                        puts("!!! Null Prompt !!!");
+                        return 1;
+                    }
+                    nextPT->skipDescription = skip;
+                }
                 processing = 0;
             }
         }
