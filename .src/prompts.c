@@ -12,11 +12,13 @@ Get prompt.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "prompts.h"
 
 Prompt *start;
 Prompt *end;
 
+int printPT(Prompt*);
 void printPTDLL();
 Prompt *freePT(Prompt*);
 void freePTDLL();
@@ -27,13 +29,28 @@ int addOption(char*,char*,char*,char*);
 
 /*
 Print the prompt for the user to answer.
+Prints one character at a time.
 */
 int printPT(Prompt *pt) {
     if (!pt) {
         puts("!!! Null Prompt !!!");
         return 1;
     }
-    puts(pt->description);
+
+    long msec = 50;
+
+    struct timespec ts;
+    ts.tv_sec = msec / 1000;
+    ts.tv_nsec = (msec % 1000) * 1000000;
+
+    int ii = 0;
+    while (pt->description[ii] != '\0') {
+        printf("%c", pt->description[ii++]);
+        fflush(stdout);
+        nanosleep(&ts, &ts);
+    }
+    puts("");
+
     for (int ii = 0; ii < pt->numOptions; ii++) {
         printf("%s.  %s\n", pt->options[ii].choice, pt->options[ii].choiceDescription);
     }

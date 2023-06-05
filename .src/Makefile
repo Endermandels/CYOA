@@ -1,6 +1,6 @@
 EXEC = cyoa
 OBJS = main.o exitManager.o fileManager.o userInput.o prompts.o game.o
-CCFLAGS = gcc -Wall -std=c99 --pedantic
+CCFLAGS = gcc -Wall -std=gnu11 --pedantic
 CACHE = ../.cache
 
 ${EXEC}: ${OBJS}

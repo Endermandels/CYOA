@@ -9,3 +9,6 @@
 
 4.  Login
     Ask the player for username/password combination at the appropriate prompt.
+
+5.  Variable Millisecond Printing
+    Check for different millisecond print speeds in a prompt's description.
