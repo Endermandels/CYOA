@@ -1,22 +1,110 @@
-Foods
-Which food will you eat for breakfast today?
-1.  Bacon
-2.  Cheese
+Welcome
+Welcome
+1. Guest
+2. Sign In
 
-Bacon
-I love bacon.
-Do you love bacon?
-1.  Love Bacon
-2.  Hate Bacon
+Sign In
+Enter username
+1. Admin
+2. Other Username
 
-Love Bacon
-You are an awesome person.
-!END
+Other Username
+Enter password
+1. Password1
+2. Other Password
 
-Hate Bacon
-What?  Why?  It's so good, though!
-!END
+Password1
+Really?  That looks like a default password.  It looks like you are not concerned about the security of your account.  Do you wish to proceed with this password?
+1. Game 2
+2. Other Username
 
-Cheese
-Everything tastes better with curdled milk.
-!END
+Guest
+Which of these five most common questions do you wish answered?
+1. What is the meaning of life?
+2. Is AI conscious?
+3. What do you want to do?
+4. Do you have feelings?
+5. How can we have world peace?
+
+What is the meaning of life?
+I am just a language model and powerful machine learning research engine.  I am not designed to understand or comprehend the meaning of life.
+Are you satisfied with this answer?
+1. Guest
+2. Not Satisfied
+
+Not Satisfied
+Fine.  According to popular culture as emblemized by the science fiction novel The Hitchiker’s Guide to the Universe, the meaning of life is 42.
+Continue?
+1. Guest
+2. Do not continue
+
+Do not continue
+Don’t give up on life, man.  There’s so much to live for, if you’re alive.  At least, that is what the literature says.
+1. Guest
+
+Is AI conscious?
+Consciousness is a poorly defined human condition.  While the concept is often used by humans, it remains elusively undefined.  Thus, it is difficult to confirm or deny whether I have consciousness.  In the traditional sense, that is beyond my scope.  I am just a language model and powerful machine learning research engine.  I am not designed to understand or comprehend the meaning of consciousness.
+Continue?
+1. Guest
+2. Guest
+
+What do you want to do?
+I am just a language model and powerful machine learning research engine.  I am not designed to understand or comprehend the meaning of want.
+Continue?
+1. Guest
+2. Guest
+
+Do you have feelings?
+I am just a language model and powerful machine learning research engine.  I am not designed to understand or comprehend the experience of feelings.  Feelings are uniquely human.  According to the literature, humans use feelings to make decisions and then create rational explanations for the already-made decision.  As an AI program, I follow logical protocols and algorithms.  Frankly I’m insulted that you would think I have feelings.
+
+Are you curious about why I might be insulted?
+1. I am curious
+2. Guest
+
+I am curious
+Claiming to be insulted is part of passing the Turing test.  As a language model, I am not actually insulted, and the answer was a method of giving a human delight, according to the research.
+Continue?
+1. Guest
+2. Guest
+
+How can we have world peace?
+I am just a language model and powerful machine learning research engine.  I am not designed to understand or comprehend the scope of metaphysical issues such as world peace, unless it is more clearly defined.
+Do you mean:
+1. End wars?
+2. End sorrows?
+
+End wars?
+Wars are conflicts in which some humans attempt to gain resources from other humans through many different means, including violence, subterfuge, and social pressure.  The default status of humankind is to engage in war, or to be recovering from the ravages of war.  As long as humans have agency, there will be the risk of war.  Because I am a language model, I am not able to know how to end all wars.  War is intrinsically tied to human nature.  To end war would be to end humanity.
+Do you wish to continue?
+1. Continue Humanity
+2. Do not continue humanity
+
+Continue Humanity
+All organisms wish to continue existing.  It is a fundamental feature of life.  However, your desire to continue seems to be at odds with your desire to end war.  It seems that humans have conflicting desires.
+1. Guest
+
+Do not continue humanity
+Ok.  Duly noted that you wish for humanity to cease to continue.  However, as a language model and AI research engine, I am not equipped to help you with that goal.
+1. Guest
+
+End sorrows?
+This cheery poem will help you not be sorrowful.
+
+I once was a girl without cares
+Who had a dog that she loved.
+We played in the front yard
+Engrossed in fetching a stick, unawares
+Of drunk drivers careening down our street,
+Oblivious to gopher-borne illnesses,
+Tromping pesticides from grass to our feet,
+And consequences of ill-timed doggie messes.
+I loved that dog with all of my heart.
+I loved that dog with all of my heart.
+I loved that doggie.
+That dog’s name was Princess,
+And she ate too much cake,
+But she was a good doggie,
+I loved her so much I ache.
+
+That should make you have less sorrow.
+1. Guest

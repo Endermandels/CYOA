@@ -7,7 +7,7 @@ ${EXEC}: ${OBJS}
 	${CCFLAGS} -o ${EXEC} ${OBJS}
 	make cache
 
-# if the game cache does not exist, create it
+# if the cache does not exist, create it
 cache: | ${CACHE}
 	mv ${OBJS} ${CACHE}
 	mv ${EXEC} ..

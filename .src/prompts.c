@@ -23,7 +23,7 @@ void freePTDLL();
 Prompt *getStart();
 Prompt *getPrompt(char*);
 int storePrompt(char*,char*);
-int addOption(char*,char*,char*);
+int addOption(char*,char*,char*,char*);
 
 /*
 Print the prompt for the user to answer.
@@ -35,7 +35,7 @@ int printPT(Prompt *pt) {
     }
     puts(pt->description);
     for (int ii = 0; ii < pt->numOptions; ii++) {
-        printf("%s.  %s\n", pt->options[ii].choice, pt->options[ii].goToTitle);
+        printf("%s.  %s\n", pt->options[ii].choice, pt->options[ii].choiceDescription);
     }
     return 0;
 }
@@ -50,6 +50,7 @@ void printPTDLL() {
         puts(cur->description);
         for (int ii = 0; ii < cur->numOptions; ii++) {
             puts(cur->options[ii].choice);
+            puts(cur->options[ii].choiceDescription);
             puts(cur->options[ii].goToTitle);
         }
         cur = cur->next;
@@ -75,6 +76,9 @@ Prompt *freePT(Prompt *pt) {
         for (int ii = 0; ii < pt->numOptions; ii++) {
             if (pt->options[ii].choice) {
                 free(pt->options[ii].choice);
+            }
+            if (pt->options[ii].choiceDescription) {
+                free(pt->options[ii].choiceDescription);
             }
             if (pt->options[ii].goToTitle) {
                 free(pt->options[ii].goToTitle);
@@ -168,7 +172,7 @@ int storePrompt(char *title, char *description) {
 /*
 Add a new option to an existing Prompt with given title.
 */
-int addOption(char *title, char *choice, char *goToTitle) {
+int addOption(char *title, char *choice, char *choiceDescription, char *goToTitle) {
     Prompt *pt = getPrompt(title);
     if (!pt) {
         puts("!!! Prompt Not Found !!!");
@@ -200,6 +204,7 @@ int addOption(char *title, char *choice, char *goToTitle) {
     // Add choice and goToTitle
     int ii = pt->numOptions - 1;
     pt->options[ii].choice = NULL;
+    pt->options[ii].choiceDescription = NULL;
     pt->options[ii].goToTitle = NULL;
 
     // Choice
@@ -210,6 +215,15 @@ int addOption(char *title, char *choice, char *goToTitle) {
         return 1;
     }
     strncpy(pt->options[ii].choice, choice, lenCopy);
+
+    // Choice Description
+    lenCopy = strlen(choiceDescription) + 1;
+    pt->options[ii].choiceDescription = (char*)malloc(sizeof(char)*lenCopy);
+    if (!pt->options[ii].choiceDescription) {
+        puts("!!! Memory Allocation Failure !!!");
+        return 1;
+    }
+    strncpy(pt->options[ii].choiceDescription, choiceDescription, lenCopy);
 
     // GoToTitle
     lenCopy = strlen(goToTitle) + 1;

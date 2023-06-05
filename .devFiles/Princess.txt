@@ -1,27 +1,27 @@
-Foods
+--Foods--
 Which food will you eat for breakfast today?
-1.  Bacon
-2.  Cheese
-3.  Salad
+1.  Bacon   [--Bacon--]
+2.  Cheese  [--Cheese--]
+3.  Salad   [--Salad--]
 
-Bacon
+--Bacon--
 I love bacon.
 Do you love bacon?
-1.  Love Bacon
-2.  Hate Bacon
+1.  Yes     [--Love Bacon--]
+2.  No      [--Hate Bacon--]
 
-Love Bacon
+--Love Bacon--
 You are an awesome person.
 !END
 
-Hate Bacon
+--Hate Bacon--
 What?  Why?  It's so good, though!
 !END
 
-Cheese
+--Cheese--
 Everything tastes better with curdled milk.
 !END
 
-Salad
+--Salad--
 Why would you have salad for breakfast?
 !END

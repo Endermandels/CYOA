@@ -15,7 +15,7 @@ Write to game files.
 #include "prompts.h"
 #include "userInput.h"
 
-char *storyFN = "../.devFiles/Guest.txt";
+char *storyFN = "../.devFiles/Princess.txt";
 
 int chooseStory();
 int readStory();
@@ -38,10 +38,10 @@ int chooseStory() {
 Parse the story text file into prompts.
 
 Format:
-Title
+--Title--
 Description (may contain newlines)
-1.  Title 1
-2.  Title 2
+1.  Desc 1  [--Title 1--]
+2.  Desc 2  [--Title 2--]
 etc.
 */
 int readStory() {
@@ -57,6 +57,7 @@ int readStory() {
     int descriptionSize = 0;
     char *description = NULL;
     char choice[10];
+    char choiceDescription[452];
     char goToTitle[50];
 
     int MAXLEN = 512;
@@ -190,9 +191,24 @@ int readStory() {
                 jj++;
             }
 
-            // GoToTitle
+            // Choice Description
             int kk = 0;
-            while (buffer[jj] != '\n' && buffer[jj] != '\r' && buffer[jj] != '\0') {
+            while (buffer[jj] != '[') {
+                if (buffer[jj] == '\0') {
+                    puts("!!! Improperly Formated Option !!!");
+                    free(title);
+                    free(description);
+                    fclose(fp);
+                    return 1;
+                }
+                choiceDescription[kk++] = buffer[jj++];
+            }
+            choiceDescription[kk] = '\0';
+            jj++;
+
+            // GoToTitle
+            kk = 0;
+            while (buffer[jj] != ']') {
                 if (kk >= 50) {
                     puts("!!! Improperly Formated Option !!!");
                     free(title);
@@ -204,7 +220,7 @@ int readStory() {
             }
             goToTitle[kk] = '\0';
 
-            int err = addOption(title, choice, goToTitle);
+            int err = addOption(title, choice, choiceDescription, goToTitle);
             if (err) {
                 free(title);
                 free(description);

@@ -11,6 +11,7 @@ TODO: Description
 
 typedef struct OPTION {
     char *choice;
+    char *choiceDescription;
     char *goToTitle;
 }Option;
 
@@ -28,7 +29,7 @@ void printPTDLL();
 Prompt *freePT(Prompt*);
 void freePTDLL();
 int storePrompt(char*,char*);
-int addOption(char*,char*,char*);
+int addOption(char*,char*,char*,char*);
 Prompt *getPrompt(char*);
 Prompt *getStart();
 
