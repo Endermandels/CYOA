@@ -52,10 +52,11 @@ int readStory() {
         return 1;
     }
 
-    int titleSize = 0;
-    char *title = NULL;
+    char title[50];
     int descriptionSize = 0;
     char *description = NULL;
+    int delay = 50;
+    char delayString[16];
     char choice[10];
     char choiceDescription[452];
     char goToTitle[50];
@@ -87,30 +88,17 @@ int readStory() {
                 continue;
             }
 
-            if (!title) {
-                // Init title
-                titleSize = sizeof(char)*lenBuffer;
-                title = (char*)malloc(titleSize);
-                if (!title) {
-                    puts("!!! Memory Allocation Failure !!!");
-                    fclose(fp);
-                    return 1;
-                }
-            } else if (lenBuffer > titleSize) {
-                // Resize title
-                titleSize = sizeof(char)*lenBuffer;
-                char *temp = NULL;
-                temp = (char*)realloc(title, titleSize);
-                if (!temp) {
-                    puts("!!! Memory Allocation Failure !!!");
-                    free(title);
+            if (lenBuffer > 50) {
+                puts("!!! Invalid Title Size !!!");
+                if (description) {
                     free(description);
-                    fclose(fp);
-                    return 1;
                 }
-                title = temp;
+                fclose(fp);
+                return 1;
             }
+
             strncpy(title, buffer, lenBuffer);
+
             if (title[lenBuffer-2] == '\n') {
                 title[lenBuffer-2] = '\0';
                 if (title[lenBuffer-3] == '\r') {
@@ -123,6 +111,19 @@ int readStory() {
             if (description) {
                 description[0] = '\0';
             }
+
+            // Reset Delay
+            delay = 50;
+
+            // Store Prompt
+            int err = storePrompt(title);
+            if (err) {
+                if (description) {
+                    free(description);
+                }
+                fclose(fp);
+                return err;
+            }
         } else if (ii == 1) {
             // Description
             if (!description) {
@@ -131,7 +132,6 @@ int readStory() {
                 description = (char*)malloc(descriptionSize);
                 if (!description) {
                     puts("!!! Memory Allocation Failure !!!");
-                    free(title);
                     fclose(fp);
                     return 1;
                 }
@@ -143,106 +143,152 @@ int readStory() {
                 temp = (char*)realloc(description, descriptionSize);
                 if (!temp) {
                     puts("!!! Memory Allocation Failure !!!");
-                    free(title);
                     free(description);
                     fclose(fp);
                     return 1;
                 }
                 description = temp;
             }
-            strncat(description, buffer, lenBuffer);
+
+            // Description Segments
+            int jj = 0;
+            int kk = 0;
+            int lenDescription = strlen(description);
+            int ll = lenDescription;
+            short readDelay = 0;
+            while (buffer[jj] != '\0') {
+                if (readDelay) {
+                    // Read the delay
+                    if (buffer[jj] == ']') {
+                        // Stop reading delay
+                        readDelay = 0;
+                        delayString[kk] = '\0';
+                        kk = 0;
+                        jj++;
+
+                        // Convert Delay String to Integer
+                        delay = atoi(delayString);
+                        if (!delay) {
+                            puts("!!! Empty Delay !!!");
+                            free(description);
+                            fclose(fp);
+                            return 1;
+                        }
+                    } else {
+                        // Continue reading delay
+                        if (kk >= 16) {
+                            puts("!!! Too Long of a Delay !!!");
+                            free(description);
+                            fclose(fp);
+                            return 1;
+                        }
+
+                        delayString[kk++] = buffer[jj++];
+                    }
+                } else if (buffer[jj] == '[') {
+                    // Change delay (New Description Segment)
+                    if (strlen(description) > 0) {
+                        description[ll] = '\0';
+                        addDescriptionSegment(title, description, delay);
+                        description[0] = '\0';
+                        ll = 0;
+                    }
+                    readDelay = 1;
+                    jj++;
+                } else {
+                    // Concatenate buffer to description
+                    description[ll++] = buffer[jj++];
+                }
+            }
+            description[ll] = '\0';
         } else if (ii == 2) {
             // Options
-            if (buffer[0] == '1') {
-                int err = storePrompt(title, description);
+            if (buffer[0] == '\r' || buffer[0] == '\n') {
+                // End of Options
+                ii = 3;
+            } else {
+                // Choice
+                int jj = 0;
+                while (buffer[jj] != '.') {
+                    if (buffer[jj] == '\0' || jj >= 10) {
+                        puts("!!! Improperly Formated Option !!!");
+                        free(description);
+                        fclose(fp);
+                        return 1;
+                    }
+                    choice[jj] = buffer[jj];
+                    jj++;
+                }
+                choice[jj] = '\0';
+                jj++;
+
+
+                // Clear whitespace
+                while (buffer[jj] == ' ' || buffer[jj] == '\t') {
+                    jj++;
+                }
+
+                // Choice Description
+                int kk = 0;
+                while (buffer[jj] != '[') {
+                    if (buffer[jj] == '\0') {
+                        puts("!!! Improperly Formated Option !!!");
+                        free(description);
+                        fclose(fp);
+                        return 1;
+                    }
+                    choiceDescription[kk++] = buffer[jj++];
+                }
+                choiceDescription[kk] = '\0';
+                jj++;
+
+                // GoToTitle
+                kk = 0;
+                while (buffer[jj] != ']') {
+                    if (kk >= 50) {
+                        puts("!!! Improperly Formated Option !!!");
+                        free(description);
+                        fclose(fp);
+                        return 1;
+                    }
+                    goToTitle[kk++] = buffer[jj++];
+                }
+                goToTitle[kk] = '\0';
+
+                int err = addOption(title, choice, choiceDescription, goToTitle);
                 if (err) {
-                    free(title);
                     free(description);
                     fclose(fp);
                     return err;
                 }
             }
-
-            // End of Options
-            if (buffer[0] == '\r' || buffer[0] == '\n') {
-                ii = 0;
-                continue;
-            }
-
-            // Choice
-            int jj = 0;
-            while (buffer[jj] != '.') {
-                if (buffer[jj] == '\0' || jj >= 10) {
-                    puts("!!! Improperly Formated Option !!!");
-                    free(title);
-                    free(description);
-                    fclose(fp);
-                    return 1;
+        }
+        
+        if (ii == 3) {
+            // Add Description Segment
+            int lenDescription = strlen(description);
+            if (lenDescription > 0) {
+                if (description[lenDescription-1] != '\n') {
+                    description[lenDescription] = '\n';
+                    description[lenDescription+1] = '\0';
                 }
-                choice[jj] = buffer[jj];
-                jj++;
-            }
-            choice[jj] = '\0';
-            jj++;
-
-
-            // Clear whitespace
-            while (buffer[jj] == ' ' || buffer[jj] == '\t') {
-                jj++;
-            }
-
-            // Choice Description
-            int kk = 0;
-            while (buffer[jj] != '[') {
-                if (buffer[jj] == '\0') {
-                    puts("!!! Improperly Formated Option !!!");
-                    free(title);
-                    free(description);
-                    fclose(fp);
-                    return 1;
-                }
-                choiceDescription[kk++] = buffer[jj++];
-            }
-            choiceDescription[kk] = '\0';
-            jj++;
-
-            // GoToTitle
-            kk = 0;
-            while (buffer[jj] != ']') {
-                if (kk >= 50) {
-                    puts("!!! Improperly Formated Option !!!");
-                    free(title);
-                    free(description);
-                    fclose(fp);
-                    return 1;
-                }
-                goToTitle[kk++] = buffer[jj++];
-            }
-            goToTitle[kk] = '\0';
-
-            int err = addOption(title, choice, choiceDescription, goToTitle);
-            if (err) {
-                free(title);
-                free(description);
-                fclose(fp);
-                return err;
-            }
-        } else if (ii == 3) {
-            // End
-            int err = storePrompt(title, description);
-            if (err) {
-                free(title);
-                free(description);
-                fclose(fp);
-                return err;
+                addDescriptionSegment(title, description, delay);
+                description[0] = '\0';
             }
             ii = 0;
         }
     }
 
-    // printPTDLL();
+    // Add last Description Segment
+    int lenDescription = strlen(description);
+    if (lenDescription > 0) {
+        if (description[lenDescription-1] != '\n') {
+            description[lenDescription] = '\n';
+            description[lenDescription+1] = '\0';
+        }
+        addDescriptionSegment(title, description, delay);
+    }
 
-    free(title);
     free(description);
     fclose(fp);
     return 0;

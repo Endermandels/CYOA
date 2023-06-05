@@ -5,13 +5,13 @@ Which food will you eat for breakfast today?
 3.  Salad   [--Salad--]
 
 --Bacon--
-I love bacon.
-Do you love bacon?
+[10]I love bacon.
+[100]Do you love bacon?
 1.  Yes     [--Love Bacon--]
 2.  No      [--Hate Bacon--]
 
 --Love Bacon--
-You are an awesome person.
+[500]You[50] are an awesome person.
 !END
 
 --Hate Bacon--

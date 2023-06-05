@@ -24,7 +24,8 @@ Prompt *freePT(Prompt*);
 void freePTDLL();
 Prompt *getStart();
 Prompt *getPrompt(char*);
-int storePrompt(char*,char*);
+int storePrompt(char*);
+int addDescriptionSegment(char*,char*,int);
 int addOption(char*,char*,char*,char*);
 
 /*
@@ -37,17 +38,20 @@ int printPT(Prompt *pt) {
         return 1;
     }
 
-    long msec = 50;
+    for (int ii = 0; ii < pt->numDescriptionSegments; ii++) {
+        // Milliseconds between prints
+        long msec = pt->ds[ii].delay;
 
-    struct timespec ts;
-    ts.tv_sec = msec / 1000;
-    ts.tv_nsec = (msec % 1000) * 1000000;
+        struct timespec ts;
+        ts.tv_sec = msec / 1000;
+        ts.tv_nsec = (msec % 1000) * 1000000;
 
-    int ii = 0;
-    while (pt->description[ii] != '\0') {
-        printf("%c", pt->description[ii++]);
-        fflush(stdout);
-        nanosleep(&ts, &ts);
+        int jj = 0;
+        while (pt->ds[ii].description[jj] != '\0') {
+            printf("%c", pt->ds[ii].description[jj++]);
+            fflush(stdout);
+            nanosleep(&ts, &ts);
+        }
     }
     puts("");
 
@@ -64,7 +68,10 @@ void printPTDLL() {
     Prompt *cur = start;
     while (cur) {
         puts(cur->title);
-        puts(cur->description);
+        for (int ii = 0; ii < cur->numDescriptionSegments; ii++) {
+            puts(cur->ds[ii].description);
+            printf("%d\n", cur->ds[ii].delay);
+        }
         for (int ii = 0; ii < cur->numOptions; ii++) {
             puts(cur->options[ii].choice);
             puts(cur->options[ii].choiceDescription);
@@ -86,8 +93,13 @@ Prompt *freePT(Prompt *pt) {
     if (pt->title) {
         free(pt->title);
     }
-    if (pt->description) {
-        free(pt->description);
+    if (pt->ds) {
+        for (int ii = 0; ii < pt->numDescriptionSegments; ii++) {
+            if (pt->ds[ii].description) {
+                free(pt->ds[ii].description);
+            }
+        }
+        free(pt->ds);
     }
     if (pt->options) {
         for (int ii = 0; ii < pt->numOptions; ii++) {
@@ -140,7 +152,7 @@ Prompt *getPrompt(char *title) {
 /*
 Add new prompt to DLL.
 */
-int storePrompt(char *title, char *description) {
+int storePrompt(char *title) {
     Prompt *new = NULL;
     new = (Prompt*)malloc(sizeof(Prompt));
     if (!new) {
@@ -149,7 +161,8 @@ int storePrompt(char *title, char *description) {
     }
 
     new->title = NULL;
-    new->description = NULL;
+    new->numDescriptionSegments = 0;
+    new->ds = NULL;
     new->numOptions = 0;
     new->options = NULL;
     new->next = NULL;
@@ -165,16 +178,6 @@ int storePrompt(char *title, char *description) {
     }
     strncpy(new->title, title, lenCopy);
 
-    // Description
-    lenCopy = strlen(description) + 1;
-    new->description = (char*)malloc(sizeof(char)*lenCopy);
-    if (!new->description) {
-        puts("!!! Memory Allocation Failure !!!");
-        freePT(new);
-        return 1;
-    }
-    strncpy(new->description, description, lenCopy);
-
     // Link to DLL
     if (!start) {
         start = new;
@@ -183,6 +186,55 @@ int storePrompt(char *title, char *description) {
         new->prev = end;
     }
     end = new;
+    return 0;
+}
+
+/*
+Add a new description segment to an existing Prompt with given title.
+*/
+int addDescriptionSegment(char *title, char *description, int delay) {
+    Prompt *pt = getPrompt(title);
+    if (!pt) {
+        puts("!!! Prompt Not Found !!!");
+        return 1;
+    }
+
+    // Allocate Memory
+    if (!pt->ds) {
+        // Malloc
+        pt->ds = (Description_Segment*)malloc(sizeof(Description_Segment));
+        if (!pt->ds) {
+            puts("!!! Memory Allocation Failure !!!");
+            return 1;
+        }
+        pt->numDescriptionSegments = 1;
+    } else {
+        // Realloc
+        pt->numDescriptionSegments += 1;
+        Description_Segment *temp = NULL;
+        temp = (Description_Segment*)realloc(pt->ds, sizeof(Description_Segment)*pt->numDescriptionSegments);
+        if (!temp) {
+            puts("!!! Memory Allocation Failure !!!");
+            pt->numDescriptionSegments -= 1;
+            return 1;
+        }
+        pt->ds = temp;
+    }
+
+    // Add description and delay
+    int ii = pt->numDescriptionSegments - 1;
+    pt->ds[ii].description = NULL;
+    pt->ds[ii].delay = delay;
+
+    // Description
+    int lenCopy = strlen(description) + 1;
+    pt->ds[ii].description = (char*)malloc(sizeof(char)*lenCopy);
+    if (!pt->ds[ii].description) {
+        puts("!!! Memory Allocation Failure !!!");
+        return 1;
+    }
+    strncpy(pt->ds[ii].description, description, lenCopy);
+
     return 0;
 }
 
@@ -218,7 +270,7 @@ int addOption(char *title, char *choice, char *choiceDescription, char *goToTitl
         pt->options = temp;
     }
 
-    // Add choice and goToTitle
+    // Add choice, choice description, and go to title
     int ii = pt->numOptions - 1;
     pt->options[ii].choice = NULL;
     pt->options[ii].choiceDescription = NULL;

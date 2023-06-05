@@ -15,9 +15,15 @@ typedef struct OPTION {
     char *goToTitle;
 }Option;
 
+typedef struct DESCRIPTION_SEGMENT {
+    char *description;
+    int delay;  // millisecond delay between prints
+}Description_Segment;
+
 typedef struct PROMPT {
     char *title;
-    char *description;
+    int numDescriptionSegments;
+    struct DESCRIPTION_SEGMENT *ds;
     int numOptions;
     struct OPTION *options;
     struct PROMPT *next;
@@ -28,9 +34,10 @@ int printPT(Prompt*);
 void printPTDLL();
 Prompt *freePT(Prompt*);
 void freePTDLL();
-int storePrompt(char*,char*);
-int addOption(char*,char*,char*,char*);
-Prompt *getPrompt(char*);
 Prompt *getStart();
+Prompt *getPrompt(char*);
+int storePrompt(char*);
+int addDescriptionSegment(char*,char*,int);
+int addOption(char*,char*,char*,char*);
 
 #endif

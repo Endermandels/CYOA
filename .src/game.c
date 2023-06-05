@@ -21,11 +21,9 @@ Go to next prompt.
 */
 int gameLoop() {
     int err = 0;
-
-    short running = 1;
     Prompt *cur = getStart();
 
-    while (running) {
+    while (1) {
         // Show prompt
         err = printPT(cur);
         if (err) {
@@ -34,7 +32,7 @@ int gameLoop() {
         
         // Receive user input
         char nextTitle[50];
-        int err = choose(nextTitle, 50, cur);
+        err = choose(nextTitle, 50, cur);
         if (err) {
             return err;
         }
@@ -48,6 +46,7 @@ int gameLoop() {
         cur = getPrompt(nextTitle);
         if (!cur) {
             puts("Something went wrong");
+            return 1;
         }
     }
 
