@@ -43,5 +43,8 @@ run: ${EXEC}
 runv: ${EXEC}
 	valgrind ../${EXEC}
 
+runvc: ${EXEC}
+	valgrind --leak-check=full ../${EXEC}
+
 runvs: ${EXEC}
 	valgrind -s ../${EXEC}

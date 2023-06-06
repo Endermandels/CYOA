@@ -12,12 +12,16 @@ Get prompt.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <time.h>
+#include <poll.h>
+#include <pthread.h>
 #include "prompts.h"
 
 Prompt *start;
 Prompt *end;
 
+void *checkForSkip(void*);
 int printPT(Prompt*);
 void printPTDLL();
 Prompt *freePT(Prompt*);
@@ -29,6 +33,36 @@ int addDescriptionSegment(char*,char*,int);
 int addOption(char*,char*,char*,char*);
 
 /*
+Check for mid-print skip.
+Uses a poll to see if stdin has data ready to read.
+
+@param arg skip boolean address
+*/
+void *checkForSkip(void *arg) {
+    short *skip = (short *)arg;
+    struct pollfd mypoll;
+
+    // Init mypoll
+    memset(&mypoll, 0, sizeof(mypoll));
+    mypoll.fd = 0;  // stdin
+    mypoll.events = POLLIN;
+
+    // See if player entered in data
+    char buffer[255];
+    while (1) {
+        if (poll(&mypoll, 1, 100) == 1) {
+            fgets(buffer, 255, stdin);
+            *skip = 1;
+            break;
+        } else if (*skip) {
+            return NULL;
+        }
+    }
+
+    return NULL;
+}
+
+/*
 Print the prompt for the user to answer.
 Prints one character at a time.
 */
@@ -38,9 +72,15 @@ int printPT(Prompt *pt) {
         return 1;
     }
 
+    // Check for mid-print skip on a new thread
+    short skip = 0;
+    pthread_t id;
+    pthread_create(&id, NULL, checkForSkip, &skip);
+
     for (int ii = 0; ii < pt->numDescriptionSegments; ii++) {
         // Milliseconds between prints
         long msec = 0;
+
         if (!pt->skipDescription) {
             msec = pt->ds[ii].delay;
         }
@@ -52,12 +92,25 @@ int printPT(Prompt *pt) {
         int jj = 0;
         while (pt->ds[ii].description[jj] != '\0') {
             printf("%c", pt->ds[ii].description[jj++]);
-            fflush(stdout);
-            nanosleep(&ts, &ts);
+            // Skip mid-print
+            if (!skip) {
+                fflush(stdout);
+                nanosleep(&ts, &ts);
+            }
         }
     }
     puts("");
 
+    // Signal to terminate thread and wait
+    skip = 1;
+    pthread_join(id, NULL);
+
+    // Reset Skip Description
+    if (pt->skipDescription) {
+        pt->skipDescription = 0;
+    }
+
+    // Print Options
     for (int ii = 0; ii < pt->numOptions; ii++) {
         printf("%s.  %s\n", pt->options[ii].choice, pt->options[ii].choiceDescription);
     }
