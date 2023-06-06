@@ -18,6 +18,8 @@ Get prompt.
 #include <pthread.h>
 #include "prompts.h"
 
+#define min(x,y) ((x)<(y))?(x):(y)
+
 Prompt *start;
 Prompt *end;
 
@@ -29,7 +31,7 @@ void freePTDLL();
 Prompt *getStart();
 Prompt *getPrompt(char*);
 int storePrompt(char*);
-int addDescriptionSegment(char*,char*,int);
+int addDescriptionSegment(char*,char*,int,short);
 int addOption(char*,char*,char*,char*);
 
 /*
@@ -81,14 +83,18 @@ int printPT(Prompt *pt) {
         // Milliseconds between prints
         long msec = 0;
 
+        // Check for skip
         if (!pt->skipDescription) {
             msec = pt->ds[ii].delay;
         }
 
+        // Set up print delay
         struct timespec ts;
         ts.tv_sec = msec / 1000;
         ts.tv_nsec = (msec % 1000) * 1000000;
 
+        // Print Description Segment
+        int count = 0;
         int jj = 0;
         while (pt->ds[ii].description[jj] != '\0') {
             printf("%c", pt->ds[ii].description[jj++]);
@@ -96,6 +102,24 @@ int printPT(Prompt *pt) {
             if (!skip) {
                 fflush(stdout);
                 nanosleep(&ts, &ts);
+            }
+            count++;
+        }
+
+        // Delete Description Segment
+        if (pt->ds[ii].delete) {
+            // Reduce print delay
+            msec = min(35, msec);
+            ts.tv_sec = msec / 1000;
+            ts.tv_nsec = (msec % 1000) * 1000000;
+            
+            while (count-- > 0) {
+                printf("\b \b");
+                // Skip mid-print
+                if (!skip) {
+                    fflush(stdout);
+                    nanosleep(&ts, &ts);
+                }
             }
         }
     }
@@ -249,7 +273,7 @@ int storePrompt(char *title) {
 /*
 Add a new description segment to an existing Prompt with given title.
 */
-int addDescriptionSegment(char *title, char *description, int delay) {
+int addDescriptionSegment(char *title, char *description, int delay, short delete) {
     Prompt *pt = getPrompt(title);
     if (!pt) {
         puts("!!! Prompt Not Found !!!");
@@ -282,6 +306,7 @@ int addDescriptionSegment(char *title, char *description, int delay) {
     int ii = pt->numDescriptionSegments - 1;
     pt->ds[ii].description = NULL;
     pt->ds[ii].delay = delay;
+    pt->ds[ii].delete = delete;
 
     // Description
     int lenCopy = strlen(description) + 1;

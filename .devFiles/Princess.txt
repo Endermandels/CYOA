@@ -12,16 +12,24 @@ Which food will you eat for breakfast today?
 
 --Love Bacon--
 [500]You[50] are an awesome person.
-!END
+1.  Restart [--Foods--]
+2.  Quit    [--Quit--]
 
 --Hate Bacon--
 What?  Why?  It's so good, though!
-!END
+1.  Restart [--Foods--]
+2.  Quit    [--Quit--]
 
 --Cheese--
-Everything tastes better with curdled milk.
-!END
+[10]Everything tastes better with [d100]moldy[10]curdled milk.
+1.  Restart [--Foods--]
+2.  Quit    [--Quit--]
 
 --Salad--
 Why would you have salad for breakfast?
+1.  Restart [--Foods--]
+2.  Quit    [--Quit--]
+
+--Quit--
+Press Enter to Leave
 !END

@@ -18,6 +18,7 @@ typedef struct OPTION {
 typedef struct DESCRIPTION_SEGMENT {
     char *description;
     int delay;  // millisecond delay between prints
+    short delete;   // determines whether to delete this description after printing it
 }Description_Segment;
 
 typedef struct PROMPT {
@@ -38,7 +39,7 @@ void freePTDLL();
 Prompt *getStart();
 Prompt *getPrompt(char*);
 int storePrompt(char*);
-int addDescriptionSegment(char*,char*,int);
+int addDescriptionSegment(char*,char*,int,short);
 int addOption(char*,char*,char*,char*);
 
 #endif

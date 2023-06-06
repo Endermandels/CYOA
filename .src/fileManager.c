@@ -15,7 +15,7 @@ Write to game files.
 #include "prompts.h"
 #include "userInput.h"
 
-char *storyFN = "../.devFiles/Guest.txt";
+char *storyFN = "../.devFiles/Princess.txt";
 
 int chooseStory();
 int readStory();
@@ -39,7 +39,7 @@ Parse the story text file into prompts.
 
 Format:
 --Title--
-Description (may contain newlines)
+Description
 1.  Desc 1  [--Title 1--]
 2.  Desc 2  [--Title 2--]
 etc.
@@ -56,6 +56,7 @@ int readStory() {
     int descriptionSize = 0;
     char *description = NULL;
     int delay = 50;
+    short delete = 0;
     char delayString[16];
     char choice[10];
     char choiceDescription[452];
@@ -112,8 +113,9 @@ int readStory() {
                 description[0] = '\0';
             }
 
-            // Reset Delay
+            // Reset Delay and Delete
             delay = 50;
+            delete = 0;
 
             // Store Prompt
             int err = storePrompt(title);
@@ -167,12 +169,14 @@ int readStory() {
                         jj++;
 
                         // Convert Delay String to Integer
-                        delay = atoi(delayString);
-                        if (!delay) {
-                            puts("!!! Empty Delay !!!");
-                            free(description);
-                            fclose(fp);
-                            return 1;
+                        if (strlen(delayString) > 0) {
+                            delay = atoi(delayString);
+                            if (!delay) {
+                                puts("!!! Invalid Delay !!!");
+                                free(description);
+                                fclose(fp);
+                                return 1;
+                            }
                         }
                     } else {
                         // Continue reading delay
@@ -183,14 +187,23 @@ int readStory() {
                             return 1;
                         }
 
-                        delayString[kk++] = buffer[jj++];
+                        if (buffer[jj] == 'd') {
+                            // Delete
+                            delete = 1;
+                            jj++;
+                        } else {
+                            // Read Delay
+                            delayString[kk++] = buffer[jj++];
+                        }
                     }
                 } else if (buffer[jj] == '[') {
                     // Change delay (New Description Segment)
                     if (strlen(description) > 0) {
                         description[ll] = '\0';
-                        addDescriptionSegment(title, description, delay);
+                        addDescriptionSegment(title, description, delay, delete);
                         description[0] = '\0';
+                        delay = 50;
+                        delete = 0;
                         ll = 0;
                     }
                     readDelay = 1;
@@ -200,6 +213,14 @@ int readStory() {
                     description[ll++] = buffer[jj++];
                 }
             }
+
+            if (readDelay) {
+                puts("!!! Still Reading Delay !!!");
+                free(description);
+                fclose(fp);
+                return 1;
+            }
+
             description[ll] = '\0';
         } else if (ii == 2) {
             // Options
@@ -272,8 +293,10 @@ int readStory() {
                     description[lenDescription] = '\n';
                     description[lenDescription+1] = '\0';
                 }
-                addDescriptionSegment(title, description, delay);
+                addDescriptionSegment(title, description, delay, delete);
                 description[0] = '\0';
+                delay = 50;
+                delete = 0;
             }
             ii = 0;
         }
@@ -286,7 +309,7 @@ int readStory() {
             description[lenDescription] = '\n';
             description[lenDescription+1] = '\0';
         }
-        addDescriptionSegment(title, description, delay);
+        addDescriptionSegment(title, description, delay, delete);
     }
 
     free(description);
