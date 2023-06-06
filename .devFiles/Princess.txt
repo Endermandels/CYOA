@@ -21,7 +21,7 @@ What?  Why?  It's so good, though!
 2.  Quit    [--Quit--]
 
 --Cheese--
-[10]Everything tastes better with [d100]moldy[10]curdled milk.
+[10]Everything [d100]smells[e50]tastes better with [d100]moldy[e70]curdled milk.
 1.  Restart [--Foods--]
 2.  Quit    [--Quit--]
 

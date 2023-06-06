@@ -78,6 +78,10 @@ int printPT(Prompt *pt) {
     short skip = 0;
     pthread_t id;
     pthread_create(&id, NULL, checkForSkip, &skip);
+    
+    // For Deletion
+    int count = 0;
+    short deleteGate = 0;
 
     for (int ii = 0; ii < pt->numDescriptionSegments; ii++) {
         // Milliseconds between prints
@@ -92,9 +96,14 @@ int printPT(Prompt *pt) {
         struct timespec ts;
         ts.tv_sec = msec / 1000;
         ts.tv_nsec = (msec % 1000) * 1000000;
+        
+        // Delete Gate
+        if (!deleteGate && pt->ds[ii].delete) {
+            deleteGate = 1;
+            count = 0;
+        }
 
         // Print Description Segment
-        int count = 0;
         int jj = 0;
         while (pt->ds[ii].description[jj] != '\0') {
             printf("%c", pt->ds[ii].description[jj++]);
@@ -106,19 +115,42 @@ int printPT(Prompt *pt) {
             count++;
         }
 
+
         // Delete Description Segment
-        if (pt->ds[ii].delete) {
-            // Reduce print delay
-            msec = min(35, msec);
-            ts.tv_sec = msec / 1000;
-            ts.tv_nsec = (msec % 1000) * 1000000;
-            
-            while (count-- > 0) {
-                printf("\b \b");
-                // Skip mid-print
-                if (!skip) {
-                    fflush(stdout);
-                    nanosleep(&ts, &ts);
+        if (deleteGate) {
+            if (ii+1 < pt->numDescriptionSegments) {
+                if (!(pt->ds[ii+1].delete)) {
+                    // Close gate
+                    deleteGate = 0;
+
+                    // Reduce print delay
+                    msec = min(35, msec);
+                    ts.tv_sec = msec / 1000;
+                    ts.tv_nsec = (msec % 1000) * 1000000;
+                    
+                    while (count-- > 0) {
+                        printf("\b \b");
+                        // Skip mid-print
+                        if (!skip) {
+                            fflush(stdout);
+                            nanosleep(&ts, &ts);
+                        }
+                    }
+                }
+            } else {
+                // Last Description Segment: Must Delete
+                // Reduce print delay
+                msec = min(35, msec);
+                ts.tv_sec = msec / 1000;
+                ts.tv_nsec = (msec % 1000) * 1000000;
+                
+                while (count-- > 0) {
+                    printf("\b \b");
+                    // Skip mid-print
+                    if (!skip) {
+                        fflush(stdout);
+                        nanosleep(&ts, &ts);
+                    }
                 }
             }
         }

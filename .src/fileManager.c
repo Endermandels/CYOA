@@ -191,6 +191,10 @@ int readStory() {
                             // Delete
                             delete = 1;
                             jj++;
+                        } else if (buffer[jj] == 'e') {
+                            // End Delete
+                            delete = 0;
+                            jj++;
                         } else {
                             // Read Delay
                             delayString[kk++] = buffer[jj++];
@@ -203,7 +207,6 @@ int readStory() {
                         addDescriptionSegment(title, description, delay, delete);
                         description[0] = '\0';
                         delay = 50;
-                        delete = 0;
                         ll = 0;
                     }
                     readDelay = 1;
@@ -296,7 +299,6 @@ int readStory() {
                 addDescriptionSegment(title, description, delay, delete);
                 description[0] = '\0';
                 delay = 50;
-                delete = 0;
             }
             ii = 0;
         }
