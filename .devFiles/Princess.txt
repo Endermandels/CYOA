@@ -2,7 +2,12 @@
 Please enter your username.
 *
 alice.  [--Alice--]
+bob.    [--Bob--]
 _.	[--Foods--]
+
+--Bob--
+So you're back for more...
+!END
 
 --Alice--
 You know what you've done.

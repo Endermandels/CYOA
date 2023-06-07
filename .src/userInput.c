@@ -91,6 +91,21 @@ int choose(char *dest, int n, Prompt *pt) {
         
         // Check for user's choice and next title
         for (int ii = 0; ii < pt->numOptions; ii++) {
+            if (pt->freeform && !strcmp("_", pt->options[ii].choice)) {
+                // All other options exhausted
+                strncpy(dest, pt->options[ii].goToTitle, strlen(pt->options[ii].goToTitle)+1);
+                if (skip) {
+                    Prompt *nextPT = getPrompt(pt->options[ii].goToTitle);
+                    if (!nextPT) {
+                        puts("!!! Null Prompt !!!");
+                        return 1;
+                    }
+                    nextPT->skipDescription = skip;
+                }
+                processing = 0;
+                break;
+            }
+
             if (!strcmp(buffer, pt->options[ii].choice)) {
                 strncpy(dest, pt->options[ii].goToTitle, strlen(pt->options[ii].goToTitle)+1);
                 if (skip) {
@@ -102,6 +117,7 @@ int choose(char *dest, int n, Prompt *pt) {
                     nextPT->skipDescription = skip;
                 }
                 processing = 0;
+                break;
             }
         }
 
