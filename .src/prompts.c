@@ -32,7 +32,8 @@ Prompt *getStart();
 Prompt *getPrompt(char*);
 int storePrompt(char*);
 int addDescriptionSegment(char*,char*,int,short);
-int addOption(char*,char*,char*,char*);
+int addOption(char*,char*,char*,char*,short);
+int formify(char*);
 
 /*
 Check for mid-print skip.
@@ -81,7 +82,7 @@ int printPT(Prompt *pt) {
     
     // For Deletion
     int count = 0;
-    short deleteGate = 0;
+    short todeleteGate = 0;
 
     for (int ii = 0; ii < pt->numDescriptionSegments; ii++) {
         // Milliseconds between prints
@@ -98,8 +99,8 @@ int printPT(Prompt *pt) {
         ts.tv_nsec = (msec % 1000) * 1000000;
         
         // Delete Gate
-        if (!deleteGate && pt->ds[ii].delete) {
-            deleteGate = 1;
+        if (!todeleteGate && pt->ds[ii].todelete) {
+            todeleteGate = 1;
             count = 0;
         }
 
@@ -117,11 +118,11 @@ int printPT(Prompt *pt) {
 
 
         // Delete Description Segment
-        if (deleteGate) {
+        if (todeleteGate) {
             if (ii+1 < pt->numDescriptionSegments) {
-                if (!(pt->ds[ii+1].delete)) {
+                if (!(pt->ds[ii+1].todelete)) {
                     // Close gate
-                    deleteGate = 0;
+                    todeleteGate = 0;
 
                     // Reduce print delay
                     msec = min(35, msec);
@@ -138,7 +139,7 @@ int printPT(Prompt *pt) {
                     }
                 }
             } else {
-                // Last Description Segment: Must Delete
+                // Last Description Segment: Must delete
                 // Reduce print delay
                 msec = min(35, msec);
                 ts.tv_sec = msec / 1000;
@@ -167,8 +168,10 @@ int printPT(Prompt *pt) {
     }
 
     // Print Options
-    for (int ii = 0; ii < pt->numOptions; ii++) {
-        printf("%s.  %s\n", pt->options[ii].choice, pt->options[ii].choiceDescription);
+    if (!pt->freeform) {
+        for (int ii = 0; ii < pt->numOptions; ii++) {
+            printf("%s.  %s\n", pt->options[ii].choice, pt->options[ii].choiceDescription);
+        }
     }
     return 0;
 }
@@ -276,6 +279,7 @@ int storePrompt(char *title) {
     new->skipDescription = 0;
     new->numDescriptionSegments = 0;
     new->ds = NULL;
+    new->freeform = 0;
     new->numOptions = 0;
     new->options = NULL;
     new->next = NULL;
@@ -305,7 +309,7 @@ int storePrompt(char *title) {
 /*
 Add a new description segment to an existing Prompt with given title.
 */
-int addDescriptionSegment(char *title, char *description, int delay, short delete) {
+int addDescriptionSegment(char *title, char *description, int delay, short todelete) {
     Prompt *pt = getPrompt(title);
     if (!pt) {
         puts("!!! Prompt Not Found !!!");
@@ -338,7 +342,7 @@ int addDescriptionSegment(char *title, char *description, int delay, short delet
     int ii = pt->numDescriptionSegments - 1;
     pt->ds[ii].description = NULL;
     pt->ds[ii].delay = delay;
-    pt->ds[ii].delete = delete;
+    pt->ds[ii].todelete = todelete;
 
     // Description
     int lenCopy = strlen(description) + 1;
@@ -355,7 +359,7 @@ int addDescriptionSegment(char *title, char *description, int delay, short delet
 /*
 Add a new option to an existing Prompt with given title.
 */
-int addOption(char *title, char *choice, char *choiceDescription, char *goToTitle) {
+int addOption(char *title, char *choice, char *choiceDescription, char *goToTitle, short freeform) {
     Prompt *pt = getPrompt(title);
     if (!pt) {
         puts("!!! Prompt Not Found !!!");
@@ -400,13 +404,22 @@ int addOption(char *title, char *choice, char *choiceDescription, char *goToTitl
     strncpy(pt->options[ii].choice, choice, lenCopy);
 
     // Choice Description
-    lenCopy = strlen(choiceDescription) + 1;
-    pt->options[ii].choiceDescription = (char*)malloc(sizeof(char)*lenCopy);
-    if (!pt->options[ii].choiceDescription) {
-        puts("!!! Memory Allocation Failure !!!");
-        return 1;
+    if (freeform) {
+        pt->options[ii].choiceDescription = (char*)malloc(sizeof(char));
+        if (!pt->options[ii].choiceDescription) {
+            puts("!!! Memory Allocation Failure !!!");
+            return 1;
+        }
+        pt->options[ii].choiceDescription[0] = '\0';
+    } else {
+        lenCopy = strlen(choiceDescription) + 1;
+        pt->options[ii].choiceDescription = (char*)malloc(sizeof(char)*lenCopy);
+        if (!pt->options[ii].choiceDescription) {
+            puts("!!! Memory Allocation Failure !!!");
+            return 1;
+        }
+        strncpy(pt->options[ii].choiceDescription, choiceDescription, lenCopy);
     }
-    strncpy(pt->options[ii].choiceDescription, choiceDescription, lenCopy);
 
     // GoToTitle
     lenCopy = strlen(goToTitle) + 1;
@@ -419,3 +432,17 @@ int addOption(char *title, char *choice, char *choiceDescription, char *goToTitl
 
     return 0;
 }
+
+/*
+Set prompt with given title to freeform.
+*/
+int formify(char *title) {
+    Prompt *pt = getPrompt(title);
+    if (!pt) {
+        puts("!!! Null Prompt !!!");
+        return 1;
+    }
+    pt->freeform = 1;
+    return 0;
+}
+

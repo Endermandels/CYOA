@@ -56,10 +56,11 @@ int readStory() {
     int descriptionSize = 0;
     char *description = NULL;
     int delay = 50;
-    short delete = 0;
+    short todelete = 0;
+    short freeform = 0;
     char delayString[16];
-    char choice[10];
-    char choiceDescription[452];
+    char choice[50];
+    char choiceDescription[412];
     char goToTitle[50];
 
     int MAXLEN = 512;
@@ -75,6 +76,17 @@ int readStory() {
                 if (buffer[0] == '1') {
                     // Begin Options
                     ii = 2;
+                } else if (buffer[0] == '*') {
+                    // Begin Free Form Options
+                    ii = 2;
+                    int err = formify(title);
+                    if (err) {
+                        free(description);
+                        fclose(fp);
+                        return err;
+                    }
+                    freeform = 1;
+                    continue;
                 } else if (buffer[0] == '!') {
                     // End
                     ii = 3;
@@ -106,16 +118,16 @@ int readStory() {
                     title[lenBuffer-3] = '\0';
                 }
             }
-            ii++;
 
             // Empty Description
             if (description) {
                 description[0] = '\0';
             }
 
-            // Reset Delay and Delete
+            // Reset variables
             delay = 50;
-            delete = 0;
+            todelete = 0;
+            freeform = 0;
 
             // Store Prompt
             int err = storePrompt(title);
@@ -126,6 +138,9 @@ int readStory() {
                 fclose(fp);
                 return err;
             }
+
+            // Go to description
+            ii = 1;
         } else if (ii == 1) {
             // Description
             if (!description) {
@@ -189,11 +204,11 @@ int readStory() {
 
                         if (buffer[jj] == 'd') {
                             // Delete
-                            delete = 1;
+                            todelete = 1;
                             jj++;
                         } else if (buffer[jj] == 'e') {
                             // End Delete
-                            delete = 0;
+                            todelete = 0;
                             jj++;
                         } else {
                             // Read Delay
@@ -204,7 +219,7 @@ int readStory() {
                     // Change delay (New Description Segment)
                     if (strlen(description) > 0) {
                         description[ll] = '\0';
-                        addDescriptionSegment(title, description, delay, delete);
+                        addDescriptionSegment(title, description, delay, todelete);
                         description[0] = '\0';
                         delay = 50;
                         ll = 0;
@@ -234,8 +249,8 @@ int readStory() {
                 // Choice
                 int jj = 0;
                 while (buffer[jj] != '.') {
-                    if (buffer[jj] == '\0' || jj >= 10) {
-                        puts("!!! Improperly Formated Option !!!");
+                    if (buffer[jj] == '\0' || jj >= 50) {
+                        puts("!!! Improperly Formated Option1 !!!");
                         free(description);
                         fclose(fp);
                         return 1;
@@ -253,24 +268,26 @@ int readStory() {
                 }
 
                 // Choice Description
-                int kk = 0;
-                while (buffer[jj] != '[') {
-                    if (buffer[jj] == '\0') {
-                        puts("!!! Improperly Formated Option !!!");
-                        free(description);
-                        fclose(fp);
-                        return 1;
+                if (!freeform) {
+                    int kk = 0;
+                    while (buffer[jj] != '[') {
+                        if (buffer[jj] == '\0') {
+                            puts("!!! Improperly Formated Option2 !!!");
+                            free(description);
+                            fclose(fp);
+                            return 1;
+                        }
+                        choiceDescription[kk++] = buffer[jj++];
                     }
-                    choiceDescription[kk++] = buffer[jj++];
+                    choiceDescription[kk] = '\0';
                 }
-                choiceDescription[kk] = '\0';
-                jj++;
+                jj++; // Skip '['
 
                 // GoToTitle
-                kk = 0;
+                int kk = 0;
                 while (buffer[jj] != ']') {
                     if (kk >= 50) {
-                        puts("!!! Improperly Formated Option !!!");
+                        puts("!!! Improperly Formated Option3 !!!");
                         free(description);
                         fclose(fp);
                         return 1;
@@ -279,7 +296,7 @@ int readStory() {
                 }
                 goToTitle[kk] = '\0';
 
-                int err = addOption(title, choice, choiceDescription, goToTitle);
+                int err = addOption(title, choice, choiceDescription, goToTitle, freeform);
                 if (err) {
                     free(description);
                     fclose(fp);
@@ -296,7 +313,7 @@ int readStory() {
                     description[lenDescription] = '\n';
                     description[lenDescription+1] = '\0';
                 }
-                addDescriptionSegment(title, description, delay, delete);
+                addDescriptionSegment(title, description, delay, todelete);
                 description[0] = '\0';
                 delay = 50;
             }
@@ -311,7 +328,7 @@ int readStory() {
             description[lenDescription] = '\n';
             description[lenDescription+1] = '\0';
         }
-        addDescriptionSegment(title, description, delay, delete);
+        addDescriptionSegment(title, description, delay, todelete);
     }
 
     free(description);

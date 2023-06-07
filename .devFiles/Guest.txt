@@ -1,3 +1,4 @@
+
 --Main Menu--
 Main Menu
 1. See what’s behind door #1 [--Door 1--]
@@ -23,7 +24,7 @@ Goodbye.
 2. Quit [--Quit--]
 
 --Pause--
-You press the PAUSE button, and nothing seems to happen, except that your finger is stuck on PAUSE.  You cannot unpause the button either.  For a fleeting moment, you wonder if someone else will unpause your game, but that thought seems to run through your head over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over.
+[5]You press the PAUSE [d]button, and nothing seems to happen, except that your finger is stuck on PAUSE.  You cannot unpause the button either.  For a fleeting moment, you wonder if someone else will unpause your game, but that thought seems to run through your head over, [55]and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, [60]and over, and over, and over, and over, and over, and over, and over, and over, [80]and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over.[e] [50]Ha ha ha.  You didn’t think I’d let you have an existential crisis did you?
 1. Restart [--Main Menu--]
 2. Quit [--Quit--] 
 

@@ -9,6 +9,7 @@ TODO: Description
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "userInput.h"
 
 void password(char*,int);
@@ -56,7 +57,15 @@ int choose(char *dest, int n, Prompt *pt) {
         fgets(dest, n, stdin);
 
         int nl = strlen(dest) - 1;
+
+        // Lowercase player's free form answer
+        if (pt->freeform) {
+            for (int ii = 0; ii < nl+1; ii++) {
+                dest[ii] = tolower(dest[ii]);
+            }
+        }
         
+        // Delete newline and carriage return
         if (dest[nl] == '\n') {
             dest[nl] = '\0';
             if (dest[nl-1] == '\r') {

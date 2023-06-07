@@ -1,3 +1,13 @@
+--Sign in--
+Please enter your username.
+*
+alice.  [--Alice--]
+_.	[--Foods--]
+
+--Alice--
+You know what you've done.
+!END
+
 --Foods--
 Which food will you eat for breakfast today?
 1.  Bacon   [--Bacon--]
