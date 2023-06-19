@@ -17,22 +17,9 @@ Write to game files.
 
 char *storyFN = "../.devFiles/Princess.txt";
 
-int chooseStory();
 int readStory();
 int readGF();
 int writeGF();
-
-/*
-Choose the story based off game files and user's password.
-*/
-int chooseStory() {
-    char username[50];
-    password(username, 50);
-
-    puts(username);
-
-    return 0;
-}
 
 /*
 Parse the story text file into prompts.
@@ -250,7 +237,7 @@ int readStory() {
                 int jj = 0;
                 while (buffer[jj] != '.') {
                     if (buffer[jj] == '\0' || jj >= 50) {
-                        puts("!!! Improperly Formated Option1 !!!");
+                        puts("!!! Improperly Formated Option (Choice) !!!");
                         free(description);
                         fclose(fp);
                         return 1;
@@ -272,7 +259,7 @@ int readStory() {
                     int kk = 0;
                     while (buffer[jj] != '[') {
                         if (buffer[jj] == '\0') {
-                            puts("!!! Improperly Formated Option2 !!!");
+                            puts("!!! Improperly Formated Option (Choice Description) !!!");
                             free(description);
                             fclose(fp);
                             return 1;
@@ -287,7 +274,7 @@ int readStory() {
                 int kk = 0;
                 while (buffer[jj] != ']') {
                     if (kk >= 50) {
-                        puts("!!! Improperly Formated Option3 !!!");
+                        puts("!!! Improperly Formated Option (Go To Title) !!!");
                         free(description);
                         fclose(fp);
                         return 1;

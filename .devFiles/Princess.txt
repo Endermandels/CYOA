@@ -1,6 +1,6 @@
 --Sign in--
 Please enter your username.
-*
+*username
 alice.  [--Alice--]
 bob.    [--Bob--]
 _.	[--Foods--]
@@ -14,7 +14,7 @@ You know what you've done.
 !END
 
 --Foods--
-Which food will you eat for breakfast today?
+Which food will you eat for breakfast today, [u]?
 1.  Bacon   [--Bacon--]
 2.  Cheese  [--Cheese--]
 3.  Salad   [--Salad--]

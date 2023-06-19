@@ -16,25 +16,6 @@ void password(char*,int);
 int choose(char*,int,Prompt*);
 
 /*
-Ask for the user's password.
-If the user entered in a matching password to one in the loginIDPasswords.txt,
-    load corresponding username into dest.
-Otherwise, load guest username into dest.
-*/
-void password(char *dest, int n) {
-    printf("Password:  ");
-    char *test = fgets(dest, n, stdin);
-
-    while (!test || test[0] == '\n') {
-        puts("- Invalid Answer -");
-        printf("Password:  ");
-        test = fgets(dest, n, stdin);
-    }
-
-    puts("");
-}
-
-/*
 Receive the user's input given the choices of the given prompt.
 
 @return next title

@@ -9,7 +9,6 @@ TODO: Description
 #ifndef FILE_MANAGER
 #define FILE_MANAGER
 
-int chooseStory();
 int readStory();
 
 #endif

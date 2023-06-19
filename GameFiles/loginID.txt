@@ -6,3 +6,6 @@ Password:   *****
 
 User:       HandsomeCEO
 Password:   ********
+
+User:       Elijah
+Password:   OoogaBooga
