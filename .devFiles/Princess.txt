@@ -14,7 +14,7 @@ You know what you've done.
 !END
 
 --Foods--
-Which food will you eat for breakfast today, [u]?
+Which food will you eat for breakfast today?
 1.  Bacon   [--Bacon--]
 2.  Cheese  [--Cheese--]
 3.  Salad   [--Salad--]
@@ -36,7 +36,7 @@ What?  Why?  It's so good, though!
 2.  Quit    [--Quit--]
 
 --Cheese--
-[10]Everything [d100]smells[e50]tastes better with [d100]moldy[e70]curdled milk.
+[10]Everything [d100]smells[e50]tastes better with [d]moldy[e70]curdled milk.
 1.  Restart [--Foods--]
 2.  Quit    [--Quit--]
 

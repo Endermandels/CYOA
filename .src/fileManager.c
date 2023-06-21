@@ -15,11 +15,79 @@ Write to game files.
 #include "prompts.h"
 #include "userInput.h"
 
-char *storyFN = "../.devFiles/Princess.txt";
-
 int readStory();
-int readGF();
-int writeGF();
+int saveKeyword(char*,char*);
+
+/*
+Check if key exists, then update it.
+If it does not exist, then create it.
+*/
+int saveKeyword(char *key, char *word) {
+    FILE *fp = NULL;
+    char *keywordsFN = "../.devFiles/keywords.txt";
+    fp = fopen(keywordsFN, "r");
+    if (!fp) {
+        puts("!!! File Not Found !!!");
+        return 1;
+    }
+
+    FILE *tempFP = NULL;
+    char *tempFN = "../.devFiles/temp.tmp";
+    tempFP = fopen(tempFN, "w");
+    if (!tempFP) {
+        fclose(fp);
+        puts("!!! Unable to Open New File !!!");
+        return 1;
+    }
+
+
+    char buffer[128];
+
+    short foundKey = 0;
+    short lookForKey = 1;
+    short createKey = 1;
+    while (fgets(buffer, 128, fp)) {
+        int ii = 0;
+        int lenKey = strlen(key) + 1;
+        if (lookForKey) {
+            foundKey = 1;
+        }
+
+        // Look for key in text file
+        while (lookForKey && buffer[ii] != ':') {
+            if (ii >= lenKey || buffer[ii] == '\0' || buffer[ii] != key[ii]) {
+                foundKey = 0;
+                break;
+            }
+            ii++;
+        }
+
+        if (foundKey) {
+            // If it exists, update it
+            puts("found key");
+            fprintf(tempFP, "%s: %s\n", key, word);
+            lookForKey = 0;
+            foundKey = 0;
+            createKey = 0;
+        } else {
+            fprintf(tempFP, "%s", buffer);
+        }
+    }
+
+    if (createKey) {
+        // Otherwise, create it
+        puts("create key");
+        fprintf(tempFP, "%s: %s\n", key, word);
+    }
+
+    fclose(fp);
+    fclose(tempFP);
+
+    remove(keywordsFN); // Delete source file
+    rename(tempFN, keywordsFN); // Rename saved file
+
+    return 0;
+}
 
 /*
 Parse the story text file into prompts.
@@ -33,11 +101,14 @@ etc.
 */
 int readStory() {
     FILE *fp = NULL;
+    char *storyFN = "../.devFiles/Princess.txt";
     fp = fopen(storyFN, "r");
     if (!fp) {
         puts("!!! File Not Found !!!");
         return 1;
     }
+
+    int lineNumber = 0;
 
     char title[50];
     int descriptionSize = 0;
@@ -56,6 +127,7 @@ int readStory() {
 
     // Read whole file
     while (fgets(buffer, MAXLEN, fp)) {
+        lineNumber++;
         int lenBuffer = strlen(buffer) + 1;
 
         if (description && description[0] != '\0') {
@@ -73,6 +145,19 @@ int readStory() {
                         return err;
                     }
                     freeform = 1;
+                    if (lenBuffer - 1 > 2) {
+                        // Add key
+                        buffer[lenBuffer-2] = '\0'; // Remove newline
+                        if (buffer[lenBuffer-3] == '\r') {
+                            buffer[lenBuffer-3] = '\0';
+                        }
+                        err = addKey(title,buffer+1);
+                        if (err) {
+                            free(description);
+                            fclose(fp);
+                            return err;
+                        }
+                    }
                     continue;
                 } else if (buffer[0] == '!') {
                     // End
@@ -89,7 +174,7 @@ int readStory() {
             }
 
             if (lenBuffer > 50) {
-                puts("!!! Invalid Title Size !!!");
+                printf("!!! Invalid Title Size (Line %d) !!!\n", lineNumber);
                 if (description) {
                     free(description);
                 }
@@ -174,7 +259,7 @@ int readStory() {
                         if (strlen(delayString) > 0) {
                             delay = atoi(delayString);
                             if (!delay) {
-                                puts("!!! Invalid Delay !!!");
+                                printf("!!! Invalid Delay (Line %d) !!!\n", lineNumber);
                                 free(description);
                                 fclose(fp);
                                 return 1;
@@ -183,7 +268,7 @@ int readStory() {
                     } else {
                         // Continue reading delay
                         if (kk >= 16) {
-                            puts("!!! Too Long of a Delay !!!");
+                            printf("!!! Too Long of a Delay (Line %d) !!!\n", lineNumber);
                             free(description);
                             fclose(fp);
                             return 1;
@@ -220,7 +305,7 @@ int readStory() {
             }
 
             if (readDelay) {
-                puts("!!! Still Reading Delay !!!");
+                printf("!!! Still Reading Delay (Line %d) !!!\n", lineNumber);
                 free(description);
                 fclose(fp);
                 return 1;
@@ -237,7 +322,7 @@ int readStory() {
                 int jj = 0;
                 while (buffer[jj] != '.') {
                     if (buffer[jj] == '\0' || jj >= 50) {
-                        puts("!!! Improperly Formated Option (Choice) !!!");
+                        printf("!!! Improperly Formated Option (Choice @ %d) !!!\n", lineNumber);
                         free(description);
                         fclose(fp);
                         return 1;
@@ -259,7 +344,7 @@ int readStory() {
                     int kk = 0;
                     while (buffer[jj] != '[') {
                         if (buffer[jj] == '\0') {
-                            puts("!!! Improperly Formated Option (Choice Description) !!!");
+                            printf("!!! Improperly Formated Option (Choice Description @ %d) !!!\n", lineNumber);
                             free(description);
                             fclose(fp);
                             return 1;
@@ -274,7 +359,7 @@ int readStory() {
                 int kk = 0;
                 while (buffer[jj] != ']') {
                     if (kk >= 50) {
-                        puts("!!! Improperly Formated Option (Go To Title) !!!");
+                        printf("!!! Improperly Formated Option (Go To Title @ %d) !!!\n", lineNumber);
                         free(description);
                         fclose(fp);
                         return 1;

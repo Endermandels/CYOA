@@ -6,3 +6,6 @@
 
 3.  Reset Game Files
     When starting a new game, reset the game files.
+
+4.  User Input Dictionary
+    *username, *password, etc. saved into a keyword textfile if the other option is chosen.

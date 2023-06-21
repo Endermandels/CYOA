@@ -11,6 +11,7 @@ TODO: Description
 #include <string.h>
 #include <ctype.h>
 #include "userInput.h"
+#include "fileManager.h"
 
 void password(char*,int);
 int choose(char*,int,Prompt*);
@@ -74,6 +75,15 @@ int choose(char *dest, int n, Prompt *pt) {
         for (int ii = 0; ii < pt->numOptions; ii++) {
             if (pt->freeform && !strcmp("_", pt->options[ii].choice)) {
                 // All other options exhausted
+                // Save Keyword
+                if (pt->key) {
+                    int err = saveKeyword(pt->key, dest);
+                    if (err) {
+                        return err;
+                    }
+                }
+
+                // Go To Title
                 strncpy(dest, pt->options[ii].goToTitle, strlen(pt->options[ii].goToTitle)+1);
                 if (skip) {
                     Prompt *nextPT = getPrompt(pt->options[ii].goToTitle);

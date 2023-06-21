@@ -10,5 +10,6 @@ TODO: Description
 #define FILE_MANAGER
 
 int readStory();
+int saveKeyword(char*,char*);
 
 #endif

@@ -208,6 +208,9 @@ Prompt *freePT(Prompt *pt) {
     if (pt->title) {
         free(pt->title);
     }
+    if (pt->key) {
+        free(pt->key);
+    }
     if (pt->ds) {
         for (int ii = 0; ii < pt->numDescriptionSegments; ii++) {
             if (pt->ds[ii].description) {
@@ -279,6 +282,7 @@ int storePrompt(char *title) {
     new->skipDescription = 0;
     new->numDescriptionSegments = 0;
     new->ds = NULL;
+    new->key = NULL;
     new->freeform = 0;
     new->numOptions = 0;
     new->options = NULL;
@@ -443,6 +447,25 @@ int formify(char *title) {
         return 1;
     }
     pt->freeform = 1;
+    return 0;
+}
+
+/*
+Add a key to a freeform prompt with given title.
+*/
+int addKey(char *title, char *key) {
+    Prompt *pt = getPrompt(title);
+    if (!pt) {
+        puts("!!! Null Prompt !!!");
+        return 1;
+    }
+    int lenKey = strlen(key) + 1;
+    pt->key = (char*)malloc(sizeof(char)*lenKey);
+    if (!pt->key) {
+        puts("!!! Memory Allocation Failure !!!");
+        return 1;
+    }
+    strncpy(pt->key, key, lenKey);
     return 0;
 }
 

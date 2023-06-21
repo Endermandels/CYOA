@@ -26,6 +26,7 @@ typedef struct PROMPT {
     short skipDescription;
     int numDescriptionSegments;
     struct DESCRIPTION_SEGMENT *ds;
+    char *key;  // key to keywords.txt
     short freeform;
     int numOptions;
     struct OPTION *options;
@@ -43,5 +44,6 @@ int storePrompt(char*);
 int addDescriptionSegment(char*,char*,int,short);
 int addOption(char*,char*,char*,char*,short);
 int formify(char*);
+int addKey(char*,char*);
 
 #endif

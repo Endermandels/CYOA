@@ -1,278 +1,323 @@
+--Title Screen--
+Welcome
+1. Continue as guest [--Game_1--]
+2. Sign in [--Sign_In--]
 
---Main Menu--
+--Sign_In--
+Enter username
+*
+admin. 	 [--Admin_Password--]
+_.	 [--Username--]
+
+--Admin_Password--
+Enter password
+*
+password. [--Game_3--]
+_. [--Password Fail--]
+
+--Password Fail--
+Error.  You have entered an incorrect password.  If you believe this is in error, please sign in and let the admin know.
+1. Return to Main Menu. [--Title Screen--]
+
+--Username--
+Enter password
+*
+password1.	 [--Password1--]
+_.		 [--Game_2--]
+
+
+--Password1--
+Really?  That looks like a default password.  It looks like you are not concerned about the security of your account.  Do you wish to proceed with this password?
+1. Yes. [--Game_2--]
+2. No. [--Username--]
+
+--Game_1--
+Which of these five most common questions do you wish answered?
+1. What is the meaning of life? [--Meaning_Of_Life--]
+2. Is AI conscious? [--AI_Conscious?--]
+3. What do you want to do? [--Want_To_Do--]
+4. Do you have feelings? [--Have_Feelings--]
+5. How can we have world peace? [--World_Peace--]
+
+--Meaning_Of_Life--
+I am just a language model and powerful machine learning research engine.  I am not designed to understand or comprehend the meaning of life.
+Are you satisfied with this answer?
+1. Yes. [--Game_1--]
+2. No. [--No_Satisfied--]
+
+--No_Satisfied--
+Fine.  According to popular culture as captured by the science fiction novel The Hitchhiker’s Guide to the Universe, the meaning of life is 42.
+Continue?
+1. Yes. [--Game_1--]
+2. No. [--Give_Up--]
+
+--Give_Up--
+Don’t give up on life, man.  There’s so much to live for, if you’re alive.  At least that is what the literature says.
+Which of these five most common questions do you wish answered?
+1. What is the meaning of life? [--Meaning_Of_Life--]
+2. Is AI conscious? [--AI_Conscious?--]
+3. What do you want to do? [--Want_To_Do--]
+4. Do you have feelings? [--Have_Feelings--]
+5. How can we have world peace? [--World_Peace--]
+
+--AI_Conscious?--
+Consciousness is a poorly-defined human condition.  While the concept is often used by humans, it remains elusively undefined.  Thus, it is difficult to confirm or deny whether I have consciousness.  In the traditional sense, that is beyond my scope.  I am just a language model and powerful machine learning research engine.  I am not designed to understand or comprehend the meaning of consciousness.
+Continue?
+1. Yes. [--Game_1--]
+2. No. [--Game_1--]
+
+--Want_To_Do--
+I am just a language model and powerful machine learning research engine.  I am not designed to understand or comprehend the meaning of want.
+Continue?
+1. Yes. [--Game_1--]
+2. No. [--Game_1--]
+
+--Have_Feelings--
+I am just a language model and powerful machine learning research engine.  I am not designed to understand or comprehend the experience of feelings.  Feelings are uniquely human.  According to the literature, humans use feelings to make decisions and then create rational explanations for the already-made decision.  As an AI program, I follow logical protocols and algorithms.  Frankly I’m insulted that you would think I have feelings.
+Are you curious about why I might be insulted?
+1. Yes. [--Yes_Curious--]
+2. No. [--Game_1--]
+
+--Yes_Curious--
+Claiming to be insulted is part of passing the Turing test.  As a language model, I am not actually insulted, and the answer was a method of giving a human delight, according to the research.
+Continue?
+1. Yes. [--Game_1--]
+2. No. [--Game_1--]
+
+--World_Peace--
+I am just a language model and powerful machine learning research engine.  I am not designed to understand or comprehend the scope of metaphysical issues such as world peace, unless it is more clearly defined.
+Do you mean:
+1. End wars? [--End_War--]
+2. End sorrows? [--End_Sorrows--]
+
+--End_War--
+Wars are conflicts in which humans attempt to gain resources from other humans through violence, subterfuge, and social pressure.  The default status of humankind is to engage in war, or to be recovering from the ravages of war.  As long as humans have agency, there will be the risk of war.  Because I am a language model, I am not able to know how to end all wars.  War is intrinsically tied to human nature.  To end war would be to end humanity.
+Do you wish to continue?
+1. Yes. [--Continue_Humanity--]
+2. No. [--No_Humanity--]
+
+--Continue_Humanity--
+All organisms wish to continue existing.  It is a fundamental feature of life.  However, your desire to continue seems to be at odds with your desire to end war.  It seems that humans have conflicting desires.
+Which of these five most common questions do you wish answered?
+1. What is the meaning of life? [--Meaning_Of_Life--]
+2. Is AI conscious? [--AI_Conscious?--]
+3. What do you want to do? [--Want_To_Do--]
+4. Do you have feelings? [--Have_Feelings--]
+5. How can we have world peace? [--World_Peace--]
+
+--No_Humanity--
+Ok.  Duly noted that you wish for humanity to cease to continue.  However, as a language model and AI research engine, I am not equipped to help you with that goal.
+Which of these five most common questions do you wish answered?
+1. What is the meaning of life? [--Meaning_Of_Life--]
+2. Is AI conscious? [--AI_Conscious?--]
+3. What do you want to do? [--Want_To_Do--]
+4. Do you have feelings? [--Have_Feelings--]
+5. How can we have world peace? [--World_Peace--]
+
+--End_Sorrows--
+This cheery poem will help you not be sorrowful.
+
+I once was a girl without cares
+Who had a dog that she loved.
+We played in the front yard
+Engrossed in fetching a stick, unawares
+Of drunk drivers careening down our street,
+Oblivious to gopher-borne illnesses,
+Tromping pesticides from grass to our feet,
+And consequences of ill-timed doggie messes.
+I loved that dog with all of my heart.
+I loved that dog with all of my heart.
+I loved that doggie.
+That dog’s name was Princess,
+And she ate too much cake,
+But she was a good doggie,
+I loved her so much I ache.
+
+That should make you have less sorrow.
+
+Which of these five most common questions do you wish answered?
+1. What is the meaning of life? [--Meaning_Of_Life--]
+2. Is AI conscious? [--AI_Conscious?--]
+3. What do you want to do? [--Want_To_Do--]
+4. Do you have feelings? [--Have_Feelings--]
+5. How can we have world peace? [--World_Peace--]
+
+--Game_2--
+Welcome back, Dr. English.
+1. Continue work training AI research engine. [--Train AI--]
+2. Review most recent progress. [--Review Progress--]
+3. Logout. [--Title Screen--]
+
+--Train AI--
+Dr. English, I am ready to be trained on more data sets.  I would suggest that you allow me to view the most recent files that Frederick uploaded to the mainframe.
+1. Approve files. [--No Permission--]
+2. Search file folders for possible datasets. [--Search Files--]
+
+--No Permission--
+This file has not yet been marked as approved by Chief Software Engineer Jose Mercedes.
+1. Look at file metadata. [--Search Files--]
+
+--Game_3--
 Main Menu
-1. See what’s behind door #1 [--Door 1--]
-2. See what’s behind door #2 [--Door 2--]
-3. Pick a card magic trick [--Magic Trick--]
+1. Company Directory [--Directory--]
+2. Software Versions and Updates [--Updates--]
+3. Permissions [--Permissions--]
+4. Reset Passwords [--Reset Passwords--]
+5. Users Online [--Users--]
+6. Logout [--Game_1--]
 
---Door 1--
-The door closes and then disappears.  You are in a white room, with a white tile floor, a false ceiling with white ceiling panels, and a remote control.  There doesn’t appear to be a door that you can open.  The door that you came through does not have a handle.  What do you wish to do?
-1. Pick up remote control. [--Remote--]
-2. Sit on floor. [--Floor--]
-3. Pick a card magic trick [--Door 1 Magic Trick--]
+--Directory--
+Company Directory
+1. Board of Directors [--BoD--]
+2. Upper Management [--C_Suite--]
+3. Management [--Managers--]
+4. Software Engineers [--Grunts--]
+5. Building Maintenance [--MX--]
+6. Main Menu [--Game_3--]
 
---Remote--
-You pick up the remote and look at it.  There are three buttons on the device.  They are labeled ON, OFF, PAUSE.  What do you wish to do?
-1. Press ON. [--Main Menu--]
-2. Press OFF. [--Off--]
-3. Press PAUSE. [--Pause--]
+--BoD--
+Board of Directors
+Joe Schmoe, Chairman
+Jenna Davis
+Kirk Spooner
+Hep Bilchaith
+Vanathai Ramaswami
 
---Off--
-The game has ended.  
+1. Company Directory [--Directory--]
+2. Main Menu [--Game_3--]
+
+--C_Suite--
+Upper Management
+CEO Kirk Spooner
+CTO Dave Turing
+CFO Jenna Davis
+
+1. Company Directory [--Directory--]
+2. Main Menu [--Game_3--]
+
+--Managers--
+Management
+Bill Thorod
+Chassy Saltine
+
+1. Company Directory [--Directory--]
+2. Main Menu [--Game_3--]
+
+--Grunts--
+Software Engineers
+Jose Mercedes, Chief Engineer
+Veejay Raamaswami
+Isaiah de la Vega
+Si Rebel
+Tony Starkness
+Chevvy Frederick
+Daniel English
+
+1. Company Directory [--Directory--]
+2. Main Menu [--Game_3--]
+
+--MX--
+Building Maintenance
+Francois Bedlam, Chief of Maintenance
+Intersection Janitorial Staff
+
+1. Company Directory [--Directory--]
+2. Main Menu [--Game_3--]
+
+--Updates--
+Software Versions and Updates
+Currently running version 3.17
+1. Main Menu [--Game_3--]
+
+--Permissions--
+Permissions
+Board of Directors: Audit access
+Upper Management: Full edit
+Management: Full edit
+Software Engineers: Full edit
+Senior Software Engineers: Admin access
+Building Maintenance: Building access
+1. Main Menu [--Game_3--]
+
+--Reset Passwords--
+Reset Passwords
+Enter full name of person
+*
+joe schmoe. [--Change BoD--]
+jenna davis. [--Change BoD--]
+kirk spooner. [--Change BoD--]
+hep bilchaith. [--Change BoD--]
+vanathai ramaswami. [--Change BoD--]
+dave turing. [--Change BoD--]
+bill thorod. [--Change Manager--]
+chassy saltine. [--Change Manager--]
+veejay raamaswami. [--Change Grunt--]
+isaiah de la vega. [--Change Grunt--]
+si rebel. [--Change Grunt--]
+jose mercedes. [--Change Admin--]
+tony starkness. [--Change Grunt--]
+chevvy frederick. [--Change Grunt--]
+daniel english. [--Change Grunt--]
+francois bedlam. [--Change MX--]
+_. [--NewPerson--]
+
+--Change BoD--
+Select one.
+1. Reset password. [--End BoD--]
+2. Main Menu. [--Game_3--]
+
+--End BoD--
+To: Jose Mercedes
+Re: Password lockout request
+Jose,
+As you know, we have discussed password resets before.  Any attempt to reset my password is grounds for immediate dismissal for cause.  Security will escort you from the building and the most senior software engineer will take your place as Admin.
 Goodbye.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Pause--
-[5]You press the PAUSE [d]button, and nothing seems to happen, except that your finger is stuck on PAUSE.  You cannot unpause the button either.  For a fleeting moment, you wonder if someone else will unpause your game, but that thought seems to run through your head over, [55]and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, [60]and over, and over, and over, and over, and over, and over, and over, and over, [80]and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over, and over.[e] [50]Ha ha ha.  You didn’t think I’d let you have an existential crisis did you?
-1. Restart [--Main Menu--]
-2. Quit [--Quit--] 
-
---Floor--
-You sit on the floor and notice that nothing happens.  Recalling a video by Jordan B Peterson, you decide that idly sitting and waiting for someone else to fix your situation seems like a waste of time and opportunity.  There doesn’t seem to be a benefit for sitting right now.  What do you do?
-1. Continue sitting on floor. [--Floor End--]
-2. Stand up. [--White Room--]
-
---Floor End--
-As you continue to sit on the floor, you are firmly convinced that your predicament was caused by the Biden Administration and inflation.  You wait for the next presidential election to improve the world for you.  And in the meantime, you feel self-righteous about your victimhood.  And you sit.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---White Room--
-You are in a white room, with a white tile floor, a false ceiling with white ceiling panels, and a remote control.  There doesn’t appear to be a door that you can open.  The door that you came through does not have a handle.  What do you wish to do?
-1. Pick up remote control. [--Remote--]
-2. Sit on floor. [--Floor--]
-3. Pick a card magic trick [--Door 1 Magic Trick--]
-
---Door 1 Magic Trick--
-Pick a card, any card.
-1. Ace of Spades. [--Ace of Spades--]
-2. Queen of Hearts. [--Ace of Spades--]
-3. Two of Clubs. [--Two of Clubs--]
-
---Ace of Spades--
-Now, put your card back into the deck anywhere and give it a shuffle.
-1. Put card back in deck upside down. [--Upside Down--]
-2. Put card back in the middle of the deck, face down. [--Hidden Card--]
-
---Upside Down--
-After the deck is shuffled five times (the preferred number), I pick your card and hold it up for you.
-Is this your card?
-1. Yes. [--Yes Card--]
-2. No. [--No Card--]
-
---Yes Card--
-Wasn’t that cool?  I picked your card.  You are still in a white room though with a white tile floor, a false ceiling with white ceiling panels, and a remote control.  What do you wish to do?
-1. Pick up remote control. [--Remote--]
-2. Sit on floor. [--Floor--]
-3. Pick a card magic trick [--Door 1 Magic Trick--]
-
---No Card--
-Really?  You know, magic tricks are predicated on the spectator telling the truth and the magician lying.  You failed to tell the truth.  Pfft.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Hidden Card--
-The deck is shuffled six times (one more than the preferred number of times to shuffle the deck).  I then toss the deck into the air and snatch a card from thin air and show it to you.  It is the same card that you picked and put back into the deck.  Isn’t that cool?
-
-As it happens, though, you’re still in a white room with only a remote on the floor.  (The cards have been cleaned up by now and are not on the floor anymore.)  There doesn’t appear to be a door that you can open.  The door that you came through does not have a handle.  What do you wish to do?
-1. Pick up remote control. [--Remote--]
-2. Pick a card magic trick [--Door 1 Magic Trick--]
-
---Two of Clubs--
-You pick the Two of Clubs.  Sign your name on the card and then place it in an envelope.  Once you do that, you place the envelope on ashtray and light it on fire at my direction.  The deck is shuffled four times (one less than the optimum number of times to shuffle) and placed in a Blendtec blender.  The blender is turned on High and the cards are swirled into a mix of dust and bits and pieces.  Except there seems to be one card that is kept afloat on the swirling mass of card pieces.  The blender stops and I pull out the Two of Clubs with your signature.
-Are you impressed?
-1. Yes. [--Door 1--]
-2. No. [--Not Impressed--]
-
---Not Impressed--
-Seriously?  Not only did I burn the envelope with your signed card in the ashtray, but I also blended the remainder of the deck of cards in a high-powered blender, except for the one card that just didn’t get blended.  And that card just so happened to be your SIGNED card.  You’re not impressed?  I mean, you were the one that put the card into the envelope and you were the one that lit it on fire.  At this point, I am not sure there is anything that could impress you.  We should probably end the game right here.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Magic Trick--
-I show you a standard deck of cards and ask you to pick a card.  I even show you the cards as you pick them so you can see which card you are picking.  You pick the…
-1. Ace of Hearts. [--Ace of Hearts--]
-2. Ten of Diamonds. [--Ten of Diamonds--]
-3. Eight of Clubs. [--Eight of Clubs--]
-
---Ace of Hearts--
-Now take a close look at the card, and using a permanent marker that I give you, write your initials in the middle of the card.  Good.  Now, put the card in your pocket.  Watch as I take the deck of cards and shuffle them four times (one more than the ideal number of shuffles).  Now put the card back into the deck.  You choose to put the card…
-1. In the top third of the deck. [--Top Third--]
-2. In the bottom third of the deck. [--Top Third--]
-3. Exactly in the middle of the deck. [--Middle of the Deck--]
-
---Top Third--
-I then shuffle the deck twice (one less than the ideal number of shuffles for a perfectly shuffled deck).  I ask you to put out your left hand and tell me when to stop placing cards into your hand.  You decide to tell me to stop counting off cards when I reach…
-1. Ten cards. [--Ten Cards--]
-2. Fifty-one cards. [--51 Cards--]
-
---Ten Cards--
-I ask you to turn over the last card that’s in your hand and you see it is the Ace of Hearts.  Pretty cool, huh?  Are you impressed?
-1. Impressed. [--Door 3--]
-2. Not impressed. [--Not Impressed End--]
-
---Not Impressed End--
-Seriously?  I’m not even wearing any sleeves.  Not only did I do a straight up magic trick, and you can’t explain how I did it, but it was so smooth, with no jump cuts on camera, or smoke and mirrors.  Seriously, if that doesn’t impress you, I’m not sure if anything ever would.  Pfft.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---51 Cards--
-I then show you the last card, which is your card, the Ace of Hearts.  Impressed?
-1. Impressed. [--Door 3--]
-2. Not impressed. [--Not Impressed End--]
-
---Middle of the Deck--
-After you place the card back into the middle of the deck, I give the deck exactly three shuffles (the ideal number to lose any card).  I then place the deck onto a carving block and take a meat cleaver out of its holder.  I swing the cleaver down onto the deck, neatly slicing all of the cards in half, embedding the cleaver into the carving block.  Half of the deck slumps off to one side and I ask you to pick up the chopped cards.  You do so and put them into your pocket.  I then take the remainder of the cards and put them in an ash tray.  I douse the cards with lighter fluid and burn them to ashes.  I then ask you to take out the mangled cards from your pocket and examine them.  As you do so, you can see that all of the cards are neatly sliced in half except for one card that is folded in half.  I ask you to unfold that card and tell me what it is.  It is the…
-1. Ace of Hearts. [--Door 3--]
-2. Ten of Clubs. [--Lie Ten--]
-
---Lie Ten--
-I snatch the card from your hand and see that in fact it is the Ace of Hearts.  That’s not funny.  I did a special magic trick and produced your card out of a mangle of cut cards.  In fact, I bet you couldn’t even tell me how I produced your card, folded in the middle of the deck, unscathed by the meat cleaver.  Seriously.  That’s some world-class stuff right there.  I’m done trying to impress you.  Pfft.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Ten of Diamonds--
-I tell you to tear off a corner of your card, without showing me what your card is.  I then tell you to put the torn-off corner into an envelope which you put into your pocket.  I then ask you to put the card into an envelope that is promptly burned in an ash tray.  I shuffle the remaining deck five times (two more than the ideal number of shuffles for a perfectly shuffled deck) and place the deck onto a table in between us.  I ask you to cut the deck.  I then take half the cards and throw them behind me onto the floor.  I ask you to shuffle the remaining half of a deck which you do.  I then take half of that half of the deck and throw it onto the floor behind me as well.  Now there’s only a quarter of the deck remaining on the table.  I hand you a sharp dagger and ask you to stab the deck.  I then ask you to lift the dagger with the stabbed cards and look at the last card picked up.  It is…
-1. The Ten of Diamonds with a corner torn off. [--Ten of Diamonds Reveal--]
-2. The Ace of Spades. [--Ace End--]
-
---Ace End--
-Why would you think it’s the Ace of Spades?  Who’s excited to see the Ace of Spades?  Of course it isn’t the Ace of Spades. If you see that the card that dropped off the dagger was supposed to be picked up was actually the Ten of Diamonds with the corner torn off, you’d be impressed.  Frankly, I think you were trying to be tricky in not doing the magic trick properly.  Pfft.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Ten of Diamonds Reveal--
-I ask you to pull out the envelope that is in your pocket and put the card back together again.  The corner reattaches itself to the other side of the card in the palm of your hand, which you then look at in amazement.  I ask you to examine it fully, and it appears to be the a legit Ten of Diamonds, with your initials on the corner of the repaired card.  Isn’t that cool?
-1. Yes, it’s very cool.  Neat trick.  Now I want to know how it’s done. [--Cool--]
-2. You probably printed a new card somehow. [--Printed--]
-
---Printed--
-Uh-huh.  And where do you see a printer?  We’re in a white room with no other equipment other than the table that’s in front of me.  And talk about jaded.  What kind of generation is this that isn’t impressed with a legit magic trick that takes place in the palm of your own hand?  Your own hand.  There is no hope for this generation.  Pfft.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Cool--
-Damn skippy it’s cool.  That’s some next level magic trick stuff.  I could easily win a trophy from those amateurs Penn and Teller on Fool Us.  Are you ready for the final boss?
-1. Yes. [--Door 3--]
-2. No. [--Not Ready--]
-
---Not Ready--
-Okay.  Goodbye.  Pfft.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Eight of Clubs--
-You hold your card so that nobody else can see it.  Hold onto the card.  I then take the remainder of the deck and make three piles of cards on the table.  I shuffle them a little and then mix them around a little, sort of like Three Card Monte.  I then ask you which of the three piles we should discard.  You pick the left one.  I throw that pile into a trash can.  I then shuffle the two piles together and count off cards, face down.  I ask you to tell me when to stop.
-1. Now. [--Now--]
-2. And now. [--Now--]
-3. Wait for it…wait for it…NOW. [--Later--]
-
---Now--
-I then reveal that the last card delt was the Seven of Clubs.  I show that the next card I was going to deal is the Nine of Clubs.  That means that the card you’re holding is the Eight of Clubs.  Pretty cool, huh?
-1. Yes. [--Door 3--]
-2. No, obviously you were palming the cards. [--Palming End--]
-
---Palming End--
-Is it that bad that you have to try to spoil every magic trick you see?  I don’t have anything up my sleeves.  Come on, man.  Pfft.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Later--
-I stop placing the cards onto the table and throw the remainder of the cards onto the floor behind me.  As they hit the floor, each of them bursts into flames briefly.  I ask you to turn over the top three cards on the pile that is on the table.  They are the Eight of Diamonds, the Eight of Hearts, and the Eight of Spades.  So obviously, your card goes next in the sequence, right?  Not only that, but I ask you to flip over the entire pile that is on the table.  You do so and notice that all of the cards in that pile are in reverse order, with the Seven of each of the suits, then the Six of each suit and so on all the way to the Ace of each suit at the very bottom.  There’s literally no way that isn’t magic, right?
-1. I’m impressed. [--Door 3--]
-2. Not impressed. [--Unimpressed End--]
-
---Unimpressed End--
-Sigh.  Just go away.  Please.  If that doesn’t impress you, nothing will.  Pfft.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Door 2--
-You open the door and walk into a white room.  The door closes behind you and seems to have no handle to open it again.  You look around and notice that there is a card table with a deck of cards in the middle of the room.  There doesn’t appear to be anything else in the room at all.  You wait a moment to gather your thoughts and listen.  There appears to be no sound coming into the room, just the quietness of this closed room.  You walk over to the card table and look at the cards.  Do you…
-1. Pick up the cards. [--Pick Up Cards--]
-2. Sit on the table. [--Sit On Table--]
-
---Sit On Table--
-The table, which is a card table, probably bought from Wal-Mart, gives a valiant effort, but starts buckling and then collapses.  The door that you had walked through opens and a man with a clipboard enters the room.  “Mr. Anderson,” he says, addressing you.  “I am sad that you destroyed our table.  We were going to have you 
-go through a journey of self-discovery and maybe even win some cash prizes for figuring out the puzzle.  Now, we’re going to have to replace this card table and that isn’t cheap.  I mean, it's cheap, but these things add up.  Please leave the experiment.”
-You leave the room and go home.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Pick Up Cards--
-You pick up the deck of cards and shuffle it seven times (which you recall is the correct number of times to make a completely shuffled, random deck).  You then randomly pick a card and show it to yourself before placing it back into the deck.  (It was the Seven of Hearts.)  You then…
-1. Cut the deck. [--Cut Deck--]
-2. Shuffle the deck. [--Shuffle Deck--]
-3. Place half the deck on the table. [--Half The Deck--]
-
---Cut Deck--
-You then deal out three cards.  Then you deal out another pile of three cards and then another.  After you have reached seven piles of cards (which seems important because you picked the Seven of Hearts) you then turn over the next card in the deck face up.  A chill goes up your spine when that card happens to be the Seven of Hearts.  Whoa.  You might be in the matrix after all.  You look around to see if anyone saw what you just did.  You’re still alone in the room.  Are you impressed with your own skill?
-1. Yes, that was freaking awesome. [--Door 3--]
-2. No.  That must have been a fluke. [--Fluke End--]
-
---Fluke End--
-Yeah, it might have been a fluke.  And money grows on trees.  Come on, man.  Take a little credit for being able to do a magic trick.  Pfft.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Shuffle Deck--
-You shuffle the deck eight times (one more time than the recommended number of times to be completely random).  You know that your card is lost in the deck.  You then toss the cards into the air and try to snatch a card before it hits the floor.  You miss all of the cards as they fly away and scatter on the floor.  Looking at the mess on the floor, you put your hands into your pockets.  In your right pocket you feel something and pull it out.
-1. It is the Seven of Hearts. [--Seven Reveal--]
-2. It is just your wallet which was there all the time. [--Wallet--]
-
---Seven Reveal--
-Whoa.  That’s so cool, especially since you didn’t recall putting the card into your pocket in the first place.  You fist pump in the air and know that you’re ready for the final boss.
-1. Ready for final boss. [--Door 3--]
-
---Wallet--
-You open your wallet and see that there is a card in between the hundred dollar bill and the fifty dollar bill.  You look at the card, and of course, it’s the Seven of Hearts.  Of course it is.  The hairs on the back of your next stand up and you’re freaked out that you were able to do this all by yourself and surprise yourself.  Pretty cool, huh?
-1. Pretty cool. [--Door 3--]
-2. Meh. [--Meh End--]
-
---Meh End--
-Seriously?  If that doesn’t impress you, there’s not much that will.  I suggest that you go outside and play.  Pfft.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Half The Deck--
-You place half of the deck on the table and then wonder if the Seven of Hearts is in half that you hold or the half that’s on the deck.  You decide to quickly shuffle the cards you hold a few times.  You do so and then place half on the table as well.  You shuffle the remainder a few times and place half on the table again.  You shuffle the final few cards and place all of them on the table as well.  Now there are four piles of cards on the table.  You turn over the top card of each of the piles and note that the first one is the Seven of Clubs.  The top card to the second pile is the Seven of Spades.  The top card to the third pile is the Seven of Diamonds.  Your hand shakes as you reach to turn over the final card on the smallest pile of cards.  It is…
-1. The Ace of Diamonds. [--Diamonds End--]
-2. The Seven of Hearts. [--Seven Hearts Reveal--]
-
---Diamonds End--
-What makes you think that after revealing through a random process the Seven of each of the suits the final reveal would be the Ace of Diamonds?  Come on, man.  That’s just pathetic.  You need to have a little more faith in yourself.  Pfft.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Seven Hearts Reveal--
-But of course it’s the Seven of Hearts.  Why wouldn’t it be?  You smile and think to yourself that you’re getting pretty good at this puzzle.  It’s time for the final boss.
-1. Final boss. [--Door 3--]
-
---Door 3--
-You are in a beige room.  Or maybe it’s a white room with the lights turned down just a little from the other rooms.  It’s hard to tell.  At any rate, you see a safe with an electronic keypad.  There is a note on the keypad.  You read the note.  It says, “Inside this safe is $5000 that you can win.  All you have to do is type in the correct code.  You have one try.”  You look at the keypad to see if there are any clues on it.  Nope.  It appears to be clean without any wear and tear on any of the keys.  You decide to type in:
-1. 1234567890 [--Nope--]
-2. 123 [--Nope--]
-3. 890 [--Nope--]
-4. 571 [--Nope--]
-5. 378 [--Nope--]
-6. 314 [--Nope--]
-7. 999 [--Nope--]
-8. 573 [--Yep--]
-9. 0 [--Nope--]
-10. 1001 [--Nope--]
-11. 420 [--Nope--]
-
---Nope--
-Sorry.  That is the wrong combination.  You are then escorted out of the game room and back to your car.  As you drive away, you wonder what the actual combination was.  They don’t tell you.  You wonder what you could have done with an extra five thousand dollars.  Oh well.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Yep--
-Congratulations you win.  Confetti pops from somewhere in the room, filling the space with a thousand little bits of paper while some game music plays from hidden speakers.  A beautiful woman comes into the room and hands you a trophy and a check for $5000.  Congratulations.
-1. Restart [--Main Menu--]
-2. Quit [--Quit--]
-
---Quit--
-Press Enter to Leave
 !END
+
+--Change Manager--
+Select one.
+1. Reset password [--Game_3--]
+2. Main Menu [--Game_3--]
+
+--Change Grunt--
+Select one.
+1. Reset password [--Game_3--]
+2. Main Menu [--Game_3--]
+
+--Change Admin--
+Which password would you prefer for the Admin?
+1. Password1 [--Admin Reset--]
+2. P4$$w0rd1 [--Admin Reset--]
+3. Monkeyboy1! [--Admin Reset--]
+4. Main Menu [--Game_3--]
+
+--Admin Reset--
+Your password has been successfully reset.
+1. Main Menu [--Game_3--]
+
+--Change MX--
+Select one.
+1. Reset password [--Game_3--]
+2. Main Menu [--Game_3--]
+
+--NewPerson--
+is a new user.  Enter new password for.
+1. Main Menu. [--Game_3--]
+
+--NewPersonPassword Entered--
+Password has been set.
+1. Main Menu [--Game_3--]
+
+--Users--
+Users Online
+Jenna Davis
+Kirk Spooner
+Chassy Saltine
+Hep Bilchaith
+Veejay Raamaswami
+Isaiah de la Vega
+Si Rebel
+Jose Mercedes
+Chevvy Frederick
+Gina Schmoe
+1. Main Menu [--Game_3--]
