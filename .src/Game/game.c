@@ -10,6 +10,8 @@ TODO: Description
 #include <stdlib.h>
 #include <string.h>
 #include "../GUI/userInput.h"
+#include "../GUI/screen.h"
+#include "../GUI/ui.h"
 
 int gameLoop();
 
@@ -22,31 +24,43 @@ int gameLoop() {
     int err = 0;
     Prompt *cur = getStart();
 
-    while (1) {
+    err = initUI();
+    if (err) {
+        return err;
+    }
+
+    initScreen();
+
+    long counter = 10;
+
+    while (counter-- > 0) {
+        // Draw to screen
+        render();
+
         // Show prompt
         err = printPT(cur);
         if (err) {
             return err;
         }
         
-        // Receive user input
-        char nextTitle[DEFAULT_CHAR_ARRAY];
-        err = choose(nextTitle, DEFAULT_CHAR_ARRAY, cur);
-        if (err) {
-            return err;
-        }
+        // // Receive user input
+        // char nextTitle[DEFAULT_CHAR_ARRAY];
+        // err = choose(nextTitle, DEFAULT_CHAR_ARRAY, cur);
+        // if (err) {
+        //     return err;
+        // }
 
-        // Quit game
-        if (!strcmp(nextTitle, "q")) {
-            break;
-        }
+        // // Quit game
+        // if (!strcmp(nextTitle, "q")) {
+        //     break;
+        // }
 
-        // Go to next prompt
-        cur = getPrompt(nextTitle);
-        if (!cur) {
-            puts("Something went wrong");
-            return 1;
-        }
+        // // Go to next prompt
+        // cur = getPrompt(nextTitle);
+        // if (!cur) {
+        //     puts("Something went wrong");
+        //     return 1;
+        // }
     }
 
     return 0;

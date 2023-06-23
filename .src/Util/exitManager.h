@@ -10,5 +10,6 @@ TODO: Description
 #define EXIT_MANAGER
 
 void quit();
+void setErrorMessage(char*);
 
 #endif

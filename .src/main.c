@@ -23,17 +23,12 @@ int main(int argc, char const *argv[])
         return err;
     }
 
-    // err = initUI();
-    // if (err) {
-    //     quit();
-    //     return err;
-    // }
-
     err = gameLoop();
     if (err) {
         quit();
         return err;
     }
+    
     quit();
     return 0;
 }

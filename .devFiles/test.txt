@@ -1,0 +1,12 @@
+--Main Menu--
+Main Menu
+1.  Cheese [--Cheese--]
+2.  Custard [--Custard--]
+
+--Cheese--
+I love cheese.
+!END
+
+--Custard--
+I love custard.
+!END

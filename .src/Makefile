@@ -1,10 +1,10 @@
 EXEC = cyoa
-OBJS = main.o exitManager.o fileManager.o userInput.o prompts.o game.o
+OBJS = main.o exitManager.o fileManager.o userInput.o prompts.o game.o ui.o screen.o
 CCFLAGS = gcc -Wall -std=gnu11 --pedantic
 CACHE = ../.cache
 
 ${EXEC}: ${OBJS}
-	${CCFLAGS} -o ${EXEC} ${OBJS}
+	${CCFLAGS} -o ${EXEC} ${OBJS} -lncurses
 	make cache
 
 # if the cache does not exist, create it
@@ -29,6 +29,12 @@ exitManager.o: Util/exitManager.c
 
 userInput.o: GUI/userInput.c
 	${CCFLAGS} -c GUI/userInput.c
+
+ui.o: GUI/ui.c
+	${CCFLAGS} -c GUI/ui.c
+
+screen.o: GUI/screen.c
+	${CCFLAGS} -c GUI/screen.c
 
 prompts.o: Game/prompts.c
 	${CCFLAGS} -c Game/prompts.c

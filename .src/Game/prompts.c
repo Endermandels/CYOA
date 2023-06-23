@@ -18,6 +18,8 @@ Get prompt.
 #include <pthread.h>
 #include "prompts.h"
 #include "../Util/fileManager.h"
+#include "../Util/exitManager.h"
+#include "../GUI/screen.h"
 
 #define min(x,y) ((x)<(y))?(x):(y)
 
@@ -72,7 +74,7 @@ Prints one character at a time.
 */
 int printPT(Prompt *pt) {
     if (!pt) {
-        puts("!!! Null Prompt !!!");
+        setErrorMessage("!!! Null Prompt !!!");
         return 1;
     }
 
@@ -134,7 +136,7 @@ int printPT(Prompt *pt) {
 
                 // Print keyword
                 while (keyword[kk] != '\0') {
-                    printf("%c", keyword[kk++]);
+                    drawChar(keyword[kk++]);
                     // Skip mid-print
                     if (!skip) {
                         fflush(stdout);
@@ -150,7 +152,7 @@ int printPT(Prompt *pt) {
                 continue;
             }
 
-            printf("%c", pt->ds[ii].description[jj++]);
+            drawChar(pt->ds[ii].description[jj++]);
             // Skip mid-print
             if (!skip) {
                 fflush(stdout);
@@ -198,7 +200,7 @@ int printPT(Prompt *pt) {
             }
         }
     }
-    puts("");
+    drawChar('\n');
 
     // Signal to terminate thread and wait
     skip = 1;
@@ -212,7 +214,11 @@ int printPT(Prompt *pt) {
     // Print Options
     if (!pt->freeform) {
         for (int ii = 0; ii < pt->numOptions; ii++) {
-            printf("%s.  %s\n", pt->options[ii].choice, pt->options[ii].choiceDescription);
+            drawString(pt->options[ii].choice);
+            drawString(".  ");
+            drawString(pt->options[ii].choiceDescription);
+            drawChar('\n');
+            // printf("%s.  %s\n", pt->options[ii].choice, pt->options[ii].choiceDescription);
         }
     }
     return 0;
@@ -508,14 +514,5 @@ int addKey(char *title, char *key) {
         return 1;
     }
     strncpy(pt->optionKey, key, lenKey);
-    return 0;
-}
-
-/*
-Update given description's keywords.
-*/
-int updateDescriptionKeyword(char *description) {
-    
-
     return 0;
 }

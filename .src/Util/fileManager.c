@@ -15,6 +15,7 @@ Write to game files.
 #include "../GUI/userInput.h"
 
 char *keywordsFN = "../.devFiles/keywords.txt";
+char *storyFN = "../.devFiles/test.txt";
 
 int readStory();
 int saveKeyword(char*,char*);
@@ -141,7 +142,6 @@ etc.
 */
 int readStory() {
     FILE *fp = NULL;
-    char *storyFN = "../.devFiles/Princess.txt";
     fp = fopen(storyFN, "r");
     if (!fp) {
         puts("!!! File Not Found !!!");
