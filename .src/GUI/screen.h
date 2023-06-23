@@ -9,7 +9,7 @@ TODO: Description
 #ifndef SCREEN
 #define SCREEN
 
-void initScreen();
+void initDisplay();
 void drawChar(char);
 void drawString(char*);
 

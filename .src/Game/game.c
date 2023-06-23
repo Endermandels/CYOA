@@ -30,12 +30,10 @@ int gameLoop() {
         return err;
     }
 
-    initScreen();
-
     int counter = 10;
 
     while (counter-- > 0) {
-        // Draw to screen
+        initDisplay();
         render();
 
         // Show prompt

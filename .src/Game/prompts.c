@@ -161,6 +161,7 @@ int printPT(Prompt *pt) {
             count++;
         }
 
+        // TODO: Implement with ncurses
         // Delete Description Segment
         if (todeleteGate) {
             if (ii+1 < pt->numDescriptionSegments) {

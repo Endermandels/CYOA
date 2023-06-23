@@ -1,10 +1,20 @@
+--Sign In--
+Please enter your username.
+*username
+{username}. [--Welcome Back--]
+_.  [--Main Menu--]
+
+--Welcome Back--
+Welcome back, {username}!
+1. Main Menu [--Main Menu--]
+
 --Main Menu--
 Main Menu
 1.  Cheese [--Cheese--]
 2.  Custard [--Custard--]
 
 --Cheese--
-I love cheese.
+[15]I love cheese.
 !END
 
 --Custard--
