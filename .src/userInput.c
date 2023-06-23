@@ -97,7 +97,25 @@ int choose(char *dest, int n, Prompt *pt) {
                 break;
             }
 
-            if (!strcmp(buffer, pt->options[ii].choice)) {
+            // Check for keyword choice
+            char keyword[DEFAULT_CHAR_ARRAY];
+            if (pt->options[ii].choice[0] == '{') {
+                int lenChoice = strlen(pt->options[ii].choice);
+                char key[lenChoice];
+                strncpy(key, (pt->options[ii].choice)+1, lenChoice-2);
+                key[lenChoice-2] = '\0';
+
+                int err = getKeyword(key, keyword);
+                if (err) {
+                    return err;
+                }
+            } else {
+                strncpy(keyword, pt->options[ii].choice, strlen(pt->options[ii].choice)+1);
+            }
+
+
+            // Check if player's choice matches
+            if (!strcmp(buffer, keyword)) {
                 strncpy(dest, pt->options[ii].goToTitle, strlen(pt->options[ii].goToTitle)+1);
                 if (skip) {
                     Prompt *nextPT = getPrompt(pt->options[ii].goToTitle);
