@@ -218,7 +218,6 @@ int printPT(Prompt *pt) {
             drawString(".  ");
             drawString(pt->options[ii].choiceDescription);
             drawChar('\n');
-            // printf("%s.  %s\n", pt->options[ii].choice, pt->options[ii].choiceDescription);
         }
     }
     return 0;

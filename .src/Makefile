@@ -42,6 +42,9 @@ prompts.o: Game/prompts.c
 game.o: Game/game.c
 	${CCFLAGS} -c Game/game.c
 
+clean:
+	rm -f ${OBJS} ${EXEC}
+
 run: ${EXEC}
 	clear
 	../${EXEC}

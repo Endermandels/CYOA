@@ -21,6 +21,7 @@ void render() {
             mvaddch(yy, xx, display[xx][yy]); // Draw character to x and y position
         }
     }
+    move(curY, curX);
     refresh();
 }
 

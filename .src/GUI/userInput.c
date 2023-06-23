@@ -10,8 +10,11 @@ TODO: Description
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <curses.h>
 #include "userInput.h"
 #include "../Util/fileManager.h"
+#include "../Util/exitManager.h"
+#include "../GUI/screen.h"
 
 void password(char*,int);
 int choose(char*,int,Prompt*);
@@ -23,12 +26,12 @@ Receive the user's input given the choices of the given prompt.
 */
 int choose(char *dest, int n, Prompt *pt) {
     if (!pt) {
-        puts("!!! Null Prompt !!!");
+        setErrorMessage("!!! Null Prompt !!!");
         return 1;
     }
 
     if (pt->numOptions == 0) {
-        fgetc(stdin);
+        getch();
         strcpy(dest, "q");      // Quit the game
         return 0;
     }
@@ -36,7 +39,7 @@ int choose(char *dest, int n, Prompt *pt) {
     short processing = 1;
 
     while (processing) {
-        fgets(dest, n, stdin);
+        getnstr(dest, n);
 
         int nl = strlen(dest) - 1;
 
@@ -88,7 +91,7 @@ int choose(char *dest, int n, Prompt *pt) {
                 if (skip) {
                     Prompt *nextPT = getPrompt(pt->options[ii].goToTitle);
                     if (!nextPT) {
-                        puts("!!! Null Prompt !!!");
+                        setErrorMessage("!!! Null Prompt !!!");
                         return 1;
                     }
                     nextPT->skipDescription = skip;
@@ -120,7 +123,7 @@ int choose(char *dest, int n, Prompt *pt) {
                 if (skip) {
                     Prompt *nextPT = getPrompt(pt->options[ii].goToTitle);
                     if (!nextPT) {
-                        puts("!!! Null Prompt !!!");
+                        setErrorMessage("!!! Null Prompt !!!");
                         return 1;
                     }
                     nextPT->skipDescription = skip;
@@ -131,11 +134,11 @@ int choose(char *dest, int n, Prompt *pt) {
         }
 
         if (processing) {
-            puts("- Invalid Answer -");
+            drawString("- Invalid Answer -\n");
         }
     }
 
-    puts("");
+    drawChar('\n');
 
     return 0;
 }

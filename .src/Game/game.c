@@ -9,6 +9,7 @@ TODO: Description
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../Util/exitManager.h"
 #include "../GUI/userInput.h"
 #include "../GUI/screen.h"
 #include "../GUI/ui.h"
@@ -31,7 +32,7 @@ int gameLoop() {
 
     initScreen();
 
-    long counter = 10;
+    int counter = 10;
 
     while (counter-- > 0) {
         // Draw to screen
@@ -43,24 +44,24 @@ int gameLoop() {
             return err;
         }
         
-        // // Receive user input
-        // char nextTitle[DEFAULT_CHAR_ARRAY];
-        // err = choose(nextTitle, DEFAULT_CHAR_ARRAY, cur);
-        // if (err) {
-        //     return err;
-        // }
+        // Receive user input
+        char nextTitle[DEFAULT_CHAR_ARRAY];
+        err = choose(nextTitle, DEFAULT_CHAR_ARRAY, cur);
+        if (err) {
+            return err;
+        }
 
-        // // Quit game
-        // if (!strcmp(nextTitle, "q")) {
-        //     break;
-        // }
+        // Quit game
+        if (!strcmp(nextTitle, "q")) {
+            break;
+        }
 
-        // // Go to next prompt
-        // cur = getPrompt(nextTitle);
-        // if (!cur) {
-        //     puts("Something went wrong");
-        //     return 1;
-        // }
+        // Go to next prompt
+        cur = getPrompt(nextTitle);
+        if (!cur) {
+            setErrorMessage("Something went wrong");
+            return 1;
+        }
     }
 
     return 0;

@@ -14,24 +14,34 @@ TODO: Description
 #include "ui.h"
 
 char display[SCREEN_WIDTH][SCREEN_HEIGHT];
-int curX = 0;
-int curY = 0;
+int curX;
+int curY;
 
 void initScreen() {
     // set the matrix all to black
     for (int xx = 0; xx < SCREEN_WIDTH; xx++) {
         for (int yy = 0; yy < SCREEN_HEIGHT; yy++) {
-            display[xx][yy] = 'X';
+            display[xx][yy] = ' ';
         }
     }
+    curX = 0;
+    curY = 0;
 }
 
 void drawChar(char cc) {
-    display[curX][curY] = cc;
-    if (++curX >= SCREEN_WIDTH) {
+    if (cc == '\n') {
         curX = 0;
         if (++curY >= SCREEN_HEIGHT) {
             curY = 0;
+        }
+    } else {
+        display[curX][curY] = cc;
+
+        if (++curX >= SCREEN_WIDTH) {
+            curX = 0;
+            if (++curY >= SCREEN_HEIGHT) {
+                curY = 0;
+            }
         }
     }
     render();

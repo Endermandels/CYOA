@@ -13,6 +13,7 @@ Write to game files.
 #include <stdlib.h>
 #include <string.h>
 #include "../GUI/userInput.h"
+#include "exitManager.h"
 
 char *keywordsFN = "../.devFiles/keywords.txt";
 char *storyFN = "../.devFiles/test.txt";
@@ -28,7 +29,7 @@ int getKeyword(char *key, char *dest) {
     FILE *fp = NULL;
     fp = fopen(keywordsFN, "r");
     if (!fp) {
-        puts("!!! File Not Found !!!");
+        setErrorMessage("!!! File Not Found !!!");
         return 1;
     }
 
@@ -70,7 +71,7 @@ int saveKeyword(char *key, char *word) {
     FILE *fp = NULL;
     fp = fopen(keywordsFN, "r");
     if (!fp) {
-        puts("!!! File Not Found !!!");
+        setErrorMessage("!!! File Not Found !!!");
         return 1;
     }
 
@@ -79,7 +80,7 @@ int saveKeyword(char *key, char *word) {
     tempFP = fopen(tempFN, "w");
     if (!tempFP) {
         fclose(fp);
-        puts("!!! Unable to Open New File !!!");
+        setErrorMessage("!!! Unable to Open New File !!!");
         return 1;
     }
 

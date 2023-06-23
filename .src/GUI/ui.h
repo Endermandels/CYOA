@@ -14,6 +14,8 @@ TODO: Description
 
 // defined in screen.c
 extern char display[SCREEN_WIDTH][SCREEN_HEIGHT];
+extern int curX;
+extern int curY;
 
 void render();
 int initUI();
