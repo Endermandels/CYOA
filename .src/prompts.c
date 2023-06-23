@@ -17,6 +17,7 @@ Get prompt.
 #include <poll.h>
 #include <pthread.h>
 #include "prompts.h"
+#include "fileManager.h"
 
 #define min(x,y) ((x)<(y))?(x):(y)
 
@@ -106,7 +107,49 @@ int printPT(Prompt *pt) {
 
         // Print Description Segment
         int jj = 0;
+        int kk = 0;
+        short readKey = 0;
+        char key[DEFAULT_CHAR_ARRAY];
+        char keyword[DEFAULT_CHAR_ARRAY];
         while (pt->ds[ii].description[jj] != '\0') {
+            // Check for keyword
+            if (pt->ds[ii].description[jj] == '{') {
+                // Start reading key
+                readKey = 1;
+                jj++;
+                continue;
+            } else if (pt->ds[ii].description[jj] == '}') {
+                // Stop reading key
+                key[kk] = '\0';
+                readKey = 0;
+                kk = 0;
+                jj++;
+
+                // Get keyword
+                int err = getKeyword(key, keyword);
+                if (err) {
+                    pthread_join(id, NULL);
+                    return err;
+                }
+
+                // Print keyword
+                while (keyword[kk] != '\0') {
+                    printf("%c", keyword[kk++]);
+                    // Skip mid-print
+                    if (!skip) {
+                        fflush(stdout);
+                        nanosleep(&ts, &ts);
+                    }
+                    count++;
+                }
+
+                kk = 0;
+                continue;
+            } else if (readKey) {
+                key[kk++] = pt->ds[ii].description[jj++];
+                continue;
+            }
+
             printf("%c", pt->ds[ii].description[jj++]);
             // Skip mid-print
             if (!skip) {
@@ -115,7 +158,6 @@ int printPT(Prompt *pt) {
             }
             count++;
         }
-
 
         // Delete Description Segment
         if (todeleteGate) {
@@ -208,8 +250,8 @@ Prompt *freePT(Prompt *pt) {
     if (pt->title) {
         free(pt->title);
     }
-    if (pt->key) {
-        free(pt->key);
+    if (pt->optionKey) {
+        free(pt->optionKey);
     }
     if (pt->ds) {
         for (int ii = 0; ii < pt->numDescriptionSegments; ii++) {
@@ -282,7 +324,7 @@ int storePrompt(char *title) {
     new->skipDescription = 0;
     new->numDescriptionSegments = 0;
     new->ds = NULL;
-    new->key = NULL;
+    new->optionKey = NULL;
     new->freeform = 0;
     new->numOptions = 0;
     new->options = NULL;
@@ -460,12 +502,20 @@ int addKey(char *title, char *key) {
         return 1;
     }
     int lenKey = strlen(key) + 1;
-    pt->key = (char*)malloc(sizeof(char)*lenKey);
-    if (!pt->key) {
+    pt->optionKey = (char*)malloc(sizeof(char)*lenKey);
+    if (!pt->optionKey) {
         puts("!!! Memory Allocation Failure !!!");
         return 1;
     }
-    strncpy(pt->key, key, lenKey);
+    strncpy(pt->optionKey, key, lenKey);
     return 0;
 }
 
+/*
+Update given description's keywords.
+*/
+int updateDescriptionKeyword(char *description) {
+    
+
+    return 0;
+}

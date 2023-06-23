@@ -31,8 +31,8 @@ int gameLoop() {
         }
         
         // Receive user input
-        char nextTitle[50];
-        err = choose(nextTitle, 50, cur);
+        char nextTitle[DEFAULT_CHAR_ARRAY];
+        err = choose(nextTitle, DEFAULT_CHAR_ARRAY, cur);
         if (err) {
             return err;
         }

@@ -11,5 +11,6 @@ TODO: Description
 
 int readStory();
 int saveKeyword(char*,char*);
+int getKeyword(char*,char*);
 
 #endif

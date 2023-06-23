@@ -61,7 +61,7 @@ int choose(char *dest, int n, Prompt *pt) {
         }
 
         // Skip Option
-        char buffer[50];
+        char buffer[DEFAULT_CHAR_ARRAY];
         int lenDest = strlen(dest);
         short skip = 0;
         if (dest[0] == '-') {
@@ -76,8 +76,8 @@ int choose(char *dest, int n, Prompt *pt) {
             if (pt->freeform && !strcmp("_", pt->options[ii].choice)) {
                 // All other options exhausted
                 // Save Keyword
-                if (pt->key) {
-                    int err = saveKeyword(pt->key, dest);
+                if (pt->optionKey) {
+                    int err = saveKeyword(pt->optionKey, dest);
                     if (err) {
                         return err;
                     }

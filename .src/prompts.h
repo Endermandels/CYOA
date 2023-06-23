@@ -9,6 +9,8 @@ TODO: Description
 #ifndef PROMPTS
 #define PROMPTS
 
+#define DEFAULT_CHAR_ARRAY 50
+
 typedef struct OPTION {
     char *choice;
     char *choiceDescription;
@@ -26,7 +28,7 @@ typedef struct PROMPT {
     short skipDescription;
     int numDescriptionSegments;
     struct DESCRIPTION_SEGMENT *ds;
-    char *key;  // key to keywords.txt
+    char *optionKey;  // option key
     short freeform;
     int numOptions;
     struct OPTION *options;

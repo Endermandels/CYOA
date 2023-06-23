@@ -15,8 +15,52 @@ Write to game files.
 #include "prompts.h"
 #include "userInput.h"
 
+char *keywordsFN = "../.devFiles/keywords.txt";
+
 int readStory();
 int saveKeyword(char*,char*);
+int getKeyword(char*, char*);
+
+/*
+Get keyword correlating to key, it key exists.
+*/
+int getKeyword(char *key, char *dest) {
+    FILE *fp = NULL;
+    fp = fopen(keywordsFN, "r");
+    if (!fp) {
+        puts("!!! File Not Found !!!");
+        return 1;
+    }
+
+    char buffer[128];
+    char *result = NULL;
+
+    while (fgets(buffer, 128, fp)) {
+        result = strstr(buffer, key);
+        if (result == buffer) {
+            // Found key
+            result = strchr(buffer, ':');
+            int resultLen = strlen(result)-2;
+            strncpy(dest, result+2, resultLen);
+
+            // Remove newline
+            if (dest[resultLen-1] == '\n') {
+                dest[resultLen-1] = '\0';
+                if (resultLen-2 >= 0 && dest[resultLen-2] == '\r') {
+                    dest[resultLen-2] = '\0';
+                }
+            }
+            fclose(fp);
+
+            return 0;
+        }
+    }
+
+    fclose(fp);
+
+    strcpy(dest, "[Key Not Found]");
+    return 0;
+}
 
 /*
 Check if key exists, then update it.
@@ -24,7 +68,6 @@ If it does not exist, then create it.
 */
 int saveKeyword(char *key, char *word) {
     FILE *fp = NULL;
-    char *keywordsFN = "../.devFiles/keywords.txt";
     fp = fopen(keywordsFN, "r");
     if (!fp) {
         puts("!!! File Not Found !!!");
@@ -64,7 +107,6 @@ int saveKeyword(char *key, char *word) {
 
         if (foundKey) {
             // If it exists, update it
-            puts("found key");
             fprintf(tempFP, "%s: %s\n", key, word);
             lookForKey = 0;
             foundKey = 0;
@@ -76,7 +118,6 @@ int saveKeyword(char *key, char *word) {
 
     if (createKey) {
         // Otherwise, create it
-        puts("create key");
         fprintf(tempFP, "%s: %s\n", key, word);
     }
 
@@ -110,16 +151,16 @@ int readStory() {
 
     int lineNumber = 0;
 
-    char title[50];
+    char title[DEFAULT_CHAR_ARRAY];
     int descriptionSize = 0;
     char *description = NULL;
     int delay = 50;
     short todelete = 0;
     short freeform = 0;
     char delayString[16];
-    char choice[50];
     char choiceDescription[412];
-    char goToTitle[50];
+    char choice[DEFAULT_CHAR_ARRAY];
+    char goToTitle[DEFAULT_CHAR_ARRAY];
 
     int MAXLEN = 512;
     char buffer[MAXLEN];
@@ -173,7 +214,7 @@ int readStory() {
                 continue;
             }
 
-            if (lenBuffer > 50) {
+            if (lenBuffer > DEFAULT_CHAR_ARRAY) {
                 printf("!!! Invalid Title Size (Line %d) !!!\n", lineNumber);
                 if (description) {
                     free(description);
@@ -314,14 +355,14 @@ int readStory() {
             description[ll] = '\0';
         } else if (ii == 2) {
             // Options
-            if (buffer[0] == '\r' || buffer[0] == '\n') {
+            if ((!freeform && !strchr("123456789", buffer[0])) || strchr(" \t\r\n", buffer[0])) {
                 // End of Options
                 ii = 3;
             } else {
                 // Choice
                 int jj = 0;
                 while (buffer[jj] != '.') {
-                    if (buffer[jj] == '\0' || jj >= 50) {
+                    if (buffer[jj] == '\0' || jj >= DEFAULT_CHAR_ARRAY) {
                         printf("!!! Improperly Formated Option (Choice @ %d) !!!\n", lineNumber);
                         free(description);
                         fclose(fp);
@@ -332,7 +373,6 @@ int readStory() {
                 }
                 choice[jj] = '\0';
                 jj++;
-
 
                 // Clear whitespace
                 while (buffer[jj] == ' ' || buffer[jj] == '\t') {
@@ -358,7 +398,7 @@ int readStory() {
                 // GoToTitle
                 int kk = 0;
                 while (buffer[jj] != ']') {
-                    if (kk >= 50) {
+                    if (kk >= DEFAULT_CHAR_ARRAY) {
                         printf("!!! Improperly Formated Option (Go To Title @ %d) !!!\n", lineNumber);
                         free(description);
                         fclose(fp);
