@@ -9,8 +9,7 @@ TODO: Description
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "prompts.h"
-#include "userInput.h"
+#include "../GUI/userInput.h"
 
 int gameLoop();
 

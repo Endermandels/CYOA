@@ -21,20 +21,20 @@ ${CACHE}:
 main.o: main.c
 	${CCFLAGS} -c main.c
 
-fileManager.o: fileManager.c
-	${CCFLAGS} -c fileManager.c
+fileManager.o: Util/fileManager.c
+	${CCFLAGS} -c Util/fileManager.c
 
-exitManager.o: exitManager.c
-	${CCFLAGS} -c exitManager.c
+exitManager.o: Util/exitManager.c
+	${CCFLAGS} -c Util/exitManager.c
 
-userInput.o: userInput.c
-	${CCFLAGS} -c userInput.c
+userInput.o: GUI/userInput.c
+	${CCFLAGS} -c GUI/userInput.c
 
-prompts.o: prompts.c
-	${CCFLAGS} -c prompts.c
+prompts.o: Game/prompts.c
+	${CCFLAGS} -c Game/prompts.c
 
-game.o: game.c
-	${CCFLAGS} -c game.c
+game.o: Game/game.c
+	${CCFLAGS} -c Game/game.c
 
 run: ${EXEC}
 	clear

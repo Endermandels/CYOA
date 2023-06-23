@@ -10,9 +10,9 @@ TODO: Description
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "game.h"
-#include "fileManager.h"
-#include "exitManager.h"
+#include "Game/game.h"
+#include "Util/fileManager.h"
+#include "Util/exitManager.h"
 
 int main(int argc, char const *argv[])
 {
@@ -22,6 +22,13 @@ int main(int argc, char const *argv[])
         quit();
         return err;
     }
+
+    // err = initUI();
+    // if (err) {
+    //     quit();
+    //     return err;
+    // }
+
     err = gameLoop();
     if (err) {
         quit();

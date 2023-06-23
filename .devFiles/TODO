@@ -7,5 +7,5 @@
 3.  Reset Game Files
     When starting a new game, reset the game files.
 
-5.  Implement GUI
+4.  Implement GUI
     Implement ncurses gui.

@@ -17,7 +17,7 @@ Get prompt.
 #include <poll.h>
 #include <pthread.h>
 #include "prompts.h"
-#include "fileManager.h"
+#include "../Util/fileManager.h"
 
 #define min(x,y) ((x)<(y))?(x):(y)
 

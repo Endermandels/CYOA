@@ -11,7 +11,7 @@ TODO: Description
 #include <string.h>
 #include <ctype.h>
 #include "userInput.h"
-#include "fileManager.h"
+#include "../Util/fileManager.h"
 
 void password(char*,int);
 int choose(char*,int,Prompt*);

@@ -9,7 +9,7 @@ TODO: Description
 #ifndef USER_INPUT
 #define USER_INPUT
 
-#include "prompts.h"
+#include "../Game/prompts.h"
 
 void password(char*,int);
 int choose(char*,int,Prompt*);

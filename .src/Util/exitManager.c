@@ -7,7 +7,7 @@ TODO: Description
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include "prompts.h"
+#include "../Game/prompts.h"
 
 void quit() {
     puts("\nExiting...");
