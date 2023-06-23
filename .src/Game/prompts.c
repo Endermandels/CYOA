@@ -161,7 +161,6 @@ int printPT(Prompt *pt) {
             count++;
         }
 
-        // TODO: Implement with ncurses
         // Delete Description Segment
         if (todeleteGate) {
             if (ii+1 < pt->numDescriptionSegments) {
@@ -175,7 +174,7 @@ int printPT(Prompt *pt) {
                     ts.tv_nsec = (msec % 1000) * 1000000;
                     
                     while (count-- > 0) {
-                        printf("\b \b");
+                        deleteChar();
                         // Skip mid-print
                         if (!skip) {
                             fflush(stdout);
@@ -191,7 +190,7 @@ int printPT(Prompt *pt) {
                 ts.tv_nsec = (msec % 1000) * 1000000;
                 
                 while (count-- > 0) {
-                    printf("\b \b");
+                    deleteChar();
                     // Skip mid-print
                     if (!skip) {
                         fflush(stdout);

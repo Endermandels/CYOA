@@ -14,6 +14,8 @@ TODO: Description
 #include <curses.h>
 #include "ui.h"
 
+#define BLANK 'X'
+
 char display[SCREEN_WIDTH][SCREEN_HEIGHT];
 int curX;
 int curY;
@@ -22,7 +24,7 @@ void initDisplay() {
     // set the matrix all to black
     for (int xx = 0; xx < SCREEN_WIDTH; xx++) {
         for (int yy = 0; yy < SCREEN_HEIGHT; yy++) {
-            display[xx][yy] = 'X';
+            display[xx][yy] = BLANK;
         }
     }
     curX = 0;
@@ -59,4 +61,23 @@ void drawString(char *string) {
     while (string[ii] != '\0') {
         drawChar(string[ii++]);
     }
+}
+
+void deleteChar() {
+    if (curY == 0 && curX == 0) {
+        return;
+    }
+
+    display[curX][curY] = BLANK;
+    mvaddch(curY, curX, BLANK);
+    if (--curX < 0) {
+        if(--curY < 0) {
+            curX = 0;
+            curY = 0;
+            return;
+        }
+        curX = SCREEN_WIDTH-1;
+    }
+    move(curY, curX);
+    refresh();
 }

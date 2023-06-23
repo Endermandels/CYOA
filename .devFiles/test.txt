@@ -18,5 +18,5 @@ Main Menu
 !END
 
 --Custard--
-I love custard.
+[d]I love[e]I hate custard.
 !END

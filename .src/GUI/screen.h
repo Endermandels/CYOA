@@ -12,6 +12,7 @@ TODO: Description
 void initDisplay();
 void drawChar(char);
 void drawString(char*);
+void deleteChar();
 
 
 #endif

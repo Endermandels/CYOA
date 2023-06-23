@@ -30,9 +30,7 @@ int gameLoop() {
         return err;
     }
 
-    int counter = 10;
-
-    while (counter-- > 0) {
+    while (1) {
         initDisplay();
         render();
 
