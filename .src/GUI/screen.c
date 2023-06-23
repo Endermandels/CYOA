@@ -17,8 +17,7 @@ TODO: Description
 #define BLANK 'X'
 
 char display[SCREEN_WIDTH][SCREEN_HEIGHT];
-int curX;
-int curY;
+int curX, curY;
 
 void initDisplay() {
     // set the matrix all to black
@@ -63,21 +62,26 @@ void drawString(char *string) {
     }
 }
 
-void deleteChar() {
-    if (curY == 0 && curX == 0) {
-        return;
-    }
+/*
+Delete character at cursor position.
 
+@return Whether the top left corner was reached
+*/
+int deleteChar() {
     display[curX][curY] = BLANK;
     mvaddch(curY, curX, BLANK);
     if (--curX < 0) {
         if(--curY < 0) {
+            // Top Left Corner
             curX = 0;
             curY = 0;
-            return;
+            move(curY, curX);
+            refresh();
+            return 1;
         }
         curX = SCREEN_WIDTH-1;
     }
     move(curY, curX);
     refresh();
+    return 0;
 }

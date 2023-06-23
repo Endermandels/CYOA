@@ -15,7 +15,9 @@ Get prompt.
 #include <unistd.h>
 #include <time.h>
 #include <poll.h>
+#include <sys/eventfd.h>
 #include <pthread.h>
+#include <curses.h>
 #include "prompts.h"
 #include "../Util/fileManager.h"
 #include "../Util/exitManager.h"
@@ -50,14 +52,13 @@ void *checkForSkip(void *arg) {
 
     // Init mypoll
     memset(&mypoll, 0, sizeof(mypoll));
-    mypoll.fd = 0;  // stdin
+    mypoll.fd = 1; // Other than stdin
     mypoll.events = POLLIN;
 
     // See if player entered in data
-    char buffer[255];
     while (1) {
         if (poll(&mypoll, 1, 100) == 1) {
-            fgets(buffer, 255, stdin);
+            getch();
             *skip = 1;
             break;
         } else if (*skip) {
@@ -174,7 +175,10 @@ int printPT(Prompt *pt) {
                     ts.tv_nsec = (msec % 1000) * 1000000;
                     
                     while (count-- > 0) {
-                        deleteChar();
+                        if (deleteChar()) {
+                            // Top Left Corner Reached
+                            count = 0;
+                        }
                         // Skip mid-print
                         if (!skip) {
                             fflush(stdout);
@@ -190,7 +194,10 @@ int printPT(Prompt *pt) {
                 ts.tv_nsec = (msec % 1000) * 1000000;
                 
                 while (count-- > 0) {
-                    deleteChar();
+                    if (deleteChar()) {
+                        // Top Left Corner Reached
+                        count = 0;
+                    }
                     // Skip mid-print
                     if (!skip) {
                         fflush(stdout);

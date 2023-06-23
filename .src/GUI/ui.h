@@ -10,7 +10,7 @@ TODO: Description
 #define UI
 
 #define SCREEN_WIDTH 160
-#define SCREEN_HEIGHT 30
+#define SCREEN_HEIGHT 10
 
 // defined in screen.c
 extern char display[SCREEN_WIDTH][SCREEN_HEIGHT];
